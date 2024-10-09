@@ -1,11 +1,13 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import Confetti from 'react-confetti'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { reloadParticipants, startDraw, User } from '../lib/actions'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Button } from '@/components/ui/button'
+import Countdown from '@/components/countdown'
+import { reloadParticipants, startDraw, User } from '../lib/actions'
+import { useCountdown } from '@/hooks/use-coundown'
 
 export default function Sorteo() {
   const [participantes, setParticipantes] = useState<User[]>([])
@@ -15,7 +17,14 @@ export default function Sorteo() {
   const [showConfetti, setShowConfetti] = useState(false)
   const [showGanadores, setShowGanadores] = useState(false)
   const [showContador, setShowContador] = useState(false)
+  const [isCounting, setIsCounting] = useState(false)
   const router = useRouter()
+
+  const { count, progress } = useCountdown(
+    isCounting ? contador : 0,
+    contador,
+    isCounting
+  )
 
   useEffect(() => {
     if (contador === 0) {
@@ -34,8 +43,10 @@ export default function Sorteo() {
     setShowContador(false)
     setGanadores([])
     setCargando(true)
-    const nuevosParticipantes = await reloadParticipants()
+    setIsCounting(false)
+    setContador(5)
     //Simular el pedido a la API
+    const nuevosParticipantes = await reloadParticipants()
     setTimeout(() => {
       setParticipantes(nuevosParticipantes)
       setCargando(false)
@@ -49,16 +60,17 @@ export default function Sorteo() {
     setGanadores([])
     setShowGanadores(false)
     setShowContador(true)
+    setIsCounting(true)
     const interval = setInterval(() => {
       setContador((prev) => {
-        if (prev <= 1) {
+        if (prev <= 0) {
           clearInterval(interval)
+          setIsCounting(false)
           return 0
         }
         return prev - 1
       })
     }, 1000)
-
     const nuevosGanadores = await startDraw()
     setTimeout(() => {
       setGanadores(nuevosGanadores)
@@ -66,30 +78,53 @@ export default function Sorteo() {
   }
 
   return (
-    <main className='container mx-auto p-4'>
+    <section className='relative flex flex-col justify-center w-full col-start-2'>
+      <Image
+        src={'/assets/fondo-fic.png'}
+        alt='Sponsors FIC Parte 1'
+        width={1500}
+        height={1080}
+        className='absolute h-full w-full object-cover opacity-40 -z-10'
+        //bg-fic bg-cover bg-center
+      />
+
       <Confetti
         width={window.innerWidth}
         height={window.innerHeight}
         recycle={showConfetti}
         className={`${
           showConfetti === false
-            ? 'transition-opacity duration-4000 opacity-0'
-            : 'transition-opacity duration-4000 opacity-100'
+            ? 'transition-opacity duration-10000 opacity-0'
+            : 'transition-opacity duration-0 opacity-100'
         }`}
       />
-      <Card className='flex flex-col items-center min-h-screen p-4 gap-y-8'>
-        <CardHeader>
-          <CardTitle className='text-7xl'>Gran Sorteo FIC 2024</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className='flex space-x-4 mb-4'>
-            <Button onClick={handleRecargar} disabled={cargando}>
-              Recargar
-            </Button>
-            <Button onClick={handleEmpezarSorteo} disabled={cargando}>
-              Empezar
-            </Button>
-          </div>
+      <div className='flex justify-center w-full p-4'>
+        <Image
+          src='/assets/logo-fic.png'
+          alt='Fiesta nacional del inmigrante y las colectividades.'
+          width={600}
+          height={220}
+        />
+      </div>
+      <div className='w-full min-h-96 flex flex-col items-center gap-y-8'>
+        <div className='flex space-x-4'>
+          <Button
+            onClick={handleRecargar}
+            className='text-lg'
+            disabled={cargando}
+          >
+            Recargar
+          </Button>
+          <Button
+            onClick={handleEmpezarSorteo}
+            className='text-lg'
+            disabled={cargando}
+          >
+            Empezar
+          </Button>
+        </div>
+
+        <section>
           <AnimatePresence mode='wait'>
             {showContador && (
               <motion.div
@@ -98,10 +133,9 @@ export default function Sorteo() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className='text-center text-4xl font-bold mb-4'
                 aria-live='polite'
               >
-                {contador}
+                <Countdown count={count} progress={progress} />
               </motion.div>
             )}
             {showGanadores && (
@@ -110,7 +144,8 @@ export default function Sorteo() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 1.5 }}
+                transition={{ duration: 2 }}
+                className='w-full'
               >
                 <h2 className='text-2xl font-bold mb-2'>Ganadores:</h2>
                 <ol className='list-decimal list-inside'>
@@ -132,6 +167,7 @@ export default function Sorteo() {
               </motion.div>
             )}
           </AnimatePresence>
+
           <AnimatePresence>
             {participantes.length > 0 && !cargando && !ganadores && (
               <motion.div
@@ -149,8 +185,8 @@ export default function Sorteo() {
               </motion.div>
             )}
           </AnimatePresence>
-        </CardContent>
-      </Card>
-    </main>
+        </section>
+      </div>
+    </section>
   )
 }

@@ -1,13 +1,17 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Suspense } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Municipalidad de Zapala',
-  description: 'Sorteo para la FIC.'
+  title: 'FIC 2024',
+  description: 'Sorteo para la FIC.',
+  icons: {
+    icon: {
+      url: '/favicon.ico'
+    }
+  }
 }
 
 export default function RootLayout({
@@ -17,9 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${inter.className} min-h-screen antialiased`}>
-        <Suspense fallback={<div>Cargando...</div>}>{children}</Suspense>
-      </body>
+      <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
   )
 }
