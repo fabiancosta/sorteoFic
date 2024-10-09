@@ -1,9 +1,12 @@
 'use client'
-import { WinnersProps } from '@/interfaces/components'
+import { Winner } from '@/interfaces/actions'
 import { motion } from 'framer-motion'
 import { Trophy, Medal, Award } from 'lucide-react'
 
-export const WinnerList = ({ winners }: WinnersProps) => {
+type WinnerListProp = {
+  winners: Winner[]
+}
+export const WinnerList = ({ winners }: WinnerListProp) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -43,14 +46,14 @@ export const WinnerList = ({ winners }: WinnersProps) => {
   return (
     <div className='flex items-center justify-center p-4'>
       <motion.div
-        className='bg-white rounded-lg shadow-xl p-8 w-full h-[520px] max-w-2xl'
+        className='bg-white rounded-lg shadow-xl p-8 w-[480px] h-[520px] max-w-2xl'
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
       >
         <h1 className='text-4xl font-bold text-center mb-8 text-gray-800'>
-          Ganadores del Concurso
+          Ganadores del Sorteo
         </h1>
         <motion.ul
           variants={containerVariants}
@@ -58,30 +61,30 @@ export const WinnerList = ({ winners }: WinnersProps) => {
           animate='visible'
           className='space-y-4'
         >
-          {winners.map((winner, index) => (
+          {winners.map((winner) => (
             <motion.li
-              key={index}
+              key={winner.position}
               variants={itemVariants}
               className={`flex items-center p-4 rounded-lg ${
-                index === 0
+                winner.position === 1
                   ? 'bg-gradient-to-r from-yellow-300 to-yellow-500'
-                  : index === 1
+                  : winner.position === 2
                   ? 'bg-gradient-to-r from-gray-300 to-gray-400 shadow-sm '
-                  : index === 2
+                  : winner.position === 3
                   ? 'bg-gradient-to-r from-yellow-600 to-yellow-700 shadow-sm '
                   : 'bg-gray-100 hover:bg-gray-200 transition-colors duration-300'
               }`}
             >
               <span className='text-2xl font-bold mr-4 w-8 text-center'>
-                {index + 1}
+                {winner.position}
               </span>
-              {getIcon(index + 1)}
+              {getIcon(winner.position)}
               <span
                 className={`ml-4 text-gray-800 ${
-                  index < 3 ? 'text-xl font-semibold' : 'text-lg'
+                  winner.position < 3 ? 'text-xl font-semibold' : 'text-lg'
                 }`}
               >
-                {winner.nombre}
+                {winner.lastName + ' ' + winner.firstName}
               </span>
             </motion.li>
           ))}

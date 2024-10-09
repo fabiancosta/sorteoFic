@@ -1,5 +1,8 @@
 'use server'
-import { setTimeout } from 'timers/promises'
+import { PromiseParticipants } from '@/interfaces/actions'
+
+const GET_WINNERS_URL = process.env.NEXT_PUBLIC_GET_WINNERS as string
+const GET_WINNERS_API_KEY = process.env.NEXT_PUBLIC_API_KEY_WINNERS as string
 
 // Lista de usuarios proporcionada
 const users = [
@@ -13,33 +16,24 @@ const users = [
 
 // Simula una llamada a la base de datos para obtener participantes
 async function getParticipants() {
-  // Aquí normalmente harías una llamada a tu base de datos
   return users
 }
 
-async function getWinners(winners: number) {
+export async function getWinners(
+  players: number
+): Promise<PromiseParticipants> {
   // Aquí normalmente harías una llamada a tu base de datos
-  return users.slice(0, winners)
+  const response = await fetch(`${GET_WINNERS_URL}?winners=${players}`, {
+    headers: {
+      'X-Api-Key': GET_WINNERS_API_KEY
+    }
+  }).then((res) => res.json())
+
+  return response
 }
 
 // Llama a la API para obtener el listado nuevo de participantes.
 export async function reloadParticipants() {
   const participants = await getParticipants()
   return participants
-}
-
-export async function startDraw() {
-  const participants = await getWinners(5)
-  await setTimeout(5000) // Espera 10 segundos
-
-  // Selecciona 5 ganadores al azar.
-  const winners = []
-  const availableParticipants = [...participants]
-  while (winners.length < 5 && availableParticipants.length > 0) {
-    const index = Math.floor(Math.random() * availableParticipants.length)
-    winners.push(availableParticipants[index])
-    availableParticipants.splice(index, 1)
-  }
-
-  return winners
 }

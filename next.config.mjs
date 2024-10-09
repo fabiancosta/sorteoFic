@@ -1,4 +1,15 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'flagsapi.com',
+        port: '',
+        pathname: '/**/flat/64.png'
+      }
+    ]
+  }
+}
 
-export default nextConfig;
+export default nextConfig

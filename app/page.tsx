@@ -5,21 +5,23 @@ import Image from 'next/image'
 import Confetti from 'react-confetti'
 import { motion, AnimatePresence } from 'framer-motion'
 import Countdown from '@/components/countdown'
-import { reloadParticipants, startDraw } from '../lib/actions'
+import { getWinners, reloadParticipants } from '../lib/actions'
 import { useCountdown } from '@/hooks/use-coundown'
 import { WinnerList } from '@/components/winner-list'
-import { User } from '@/interfaces/actions'
+import { User, Winner } from '@/interfaces/actions'
 import { ActionButtons } from '@/components/action-buttons'
+import ParticipantWhitFlags from '@/components/participants'
 
 export default function Sorteo() {
   const [participantes, setParticipantes] = useState<User[]>([])
-  const [ganadores, setGanadores] = useState<User[]>([])
+  const [ganadores, setGanadores] = useState<Winner[]>([])
   const [contador, setContador] = useState(5)
   const [cargando, setCargando] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
   const [showGanadores, setShowGanadores] = useState(false)
   const [showContador, setShowContador] = useState(false)
   const [isCounting, setIsCounting] = useState(false)
+  const [hideParticipants, setHideParticipants] = useState(false)
   const router = useRouter()
 
   const { count, progress } = useCountdown(
@@ -40,6 +42,9 @@ export default function Sorteo() {
   }, [contador])
 
   const handleRecargar = async () => {
+    setTimeout(() => {
+      setHideParticipants(false)
+    }, 2000)
     setShowConfetti(false)
     setShowGanadores(false)
     setShowContador(false)
@@ -52,43 +57,46 @@ export default function Sorteo() {
     setTimeout(() => {
       setParticipantes(nuevosParticipantes)
       setCargando(false)
-    }, 2000)
+    }, 500)
     router.refresh()
   }
 
   const handleEmpezarSorteo = async () => {
-    setCargando(true)
-    setContador(5)
-    setGanadores([])
-    setShowGanadores(false)
-    setShowContador(true)
-    setIsCounting(true)
-    const interval = setInterval(() => {
-      setContador((prev) => {
-        if (prev <= 0) {
-          clearInterval(interval)
-          setIsCounting(false)
-          return 0
-        }
-        return prev - 1
-      })
-    }, 1000)
-    const nuevosGanadores = await startDraw()
+    setHideParticipants(true)
     setTimeout(() => {
-      setGanadores(nuevosGanadores)
-    }, 1200)
+      setCargando(true)
+      setContador(5)
+      setGanadores([])
+      setShowGanadores(false)
+      setShowContador(true)
+      setIsCounting(true)
+
+      const interval = setInterval(() => {
+        setContador((prev) => {
+          if (prev <= 0) {
+            clearInterval(interval)
+            setIsCounting(false)
+            return 0
+          }
+          return prev - 1
+        })
+      }, 1000)
+    }, 1000)
+
+    const { winners } = await getWinners(5)
+    setGanadores(winners)
   }
 
   return (
     <>
       <Confetti
-        width={window.innerWidth}
-        height={window.innerHeight}
+        width={1920}
+        height={968}
         recycle={showConfetti}
-        className={`${
+        className={`opacity-0 ${
           showConfetti === false
             ? 'transition-opacity duration-10000 opacity-0'
-            : 'transition-opacity duration-0 opacity-100'
+            : 'transition-opacity duration-20 opacity-100'
         }`}
       />
 
@@ -117,7 +125,20 @@ export default function Sorteo() {
             handleEmpezarSorteo={handleEmpezarSorteo}
             cargando={cargando}
           />
-          <article>
+          <article className='flex flex-col items-center w-full gap-y-4'>
+            <AnimatePresence mode='wait'>
+              {!hideParticipants && participantes.length > 0 ? (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <ParticipantWhitFlags participants={participantes} />
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+
             <AnimatePresence mode='wait'>
               {showContador && (
                 <motion.div
@@ -125,32 +146,17 @@ export default function Sorteo() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.4 }}
                   aria-live='polite'
                   className='mt-20'
                 >
                   <Countdown count={count} progress={progress} />
                 </motion.div>
               )}
-              {showGanadores && <WinnerList winners={ganadores} />}
             </AnimatePresence>
 
-            <AnimatePresence>
-              {participantes.length > 0 && !cargando && !ganadores && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <h2 className='text-xl font-bold mb-2'>Participantes:</h2>
-                  <ul>
-                    {participantes.map((participante) => (
-                      <li key={participante.id}>{participante.nombre}</li>
-                    ))}
-                  </ul>
-                </motion.div>
-              )}
+            <AnimatePresence mode='wait'>
+              {showGanadores && <WinnerList winners={ganadores} />}
             </AnimatePresence>
           </article>
         </div>

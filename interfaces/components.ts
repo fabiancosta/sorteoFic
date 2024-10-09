@@ -14,3 +14,7 @@ export interface ActionButtonsPros {
   handleEmpezarSorteo: () => void
   cargando: boolean
 }
+
+export interface ParticipantFlagsProps {
+  participants: User[]
+}
