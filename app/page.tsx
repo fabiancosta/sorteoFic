@@ -4,12 +4,12 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Confetti from 'react-confetti'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from '@/components/ui/button'
 import Countdown from '@/components/countdown'
 import { reloadParticipants, startDraw } from '../lib/actions'
 import { useCountdown } from '@/hooks/use-coundown'
 import { WinnerList } from '@/components/winner-list'
 import { User } from '@/interfaces/actions'
+import { ActionButtons } from '@/components/action-buttons'
 
 export default function Sorteo() {
   const [participantes, setParticipantes] = useState<User[]>([])
@@ -112,25 +112,11 @@ export default function Sorteo() {
         </div>
 
         <div className='w-full min-h-96 flex flex-col items-center gap-y-8'>
-          <div className='flex space-x-4'>
-            <Button
-              variant='secondary'
-              onClick={handleRecargar}
-              className='text-lg'
-              disabled={cargando}
-            >
-              Recargar
-            </Button>
-            <Button
-              variant='secondary'
-              onClick={handleEmpezarSorteo}
-              className='text-lg'
-              disabled={cargando}
-            >
-              Empezar
-            </Button>
-          </div>
-
+          <ActionButtons
+            handleRecargar={handleRecargar}
+            handleEmpezarSorteo={handleEmpezarSorteo}
+            cargando={cargando}
+          />
           <article>
             <AnimatePresence mode='wait'>
               {showContador && (

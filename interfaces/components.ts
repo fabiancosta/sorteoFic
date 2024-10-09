@@ -8,3 +8,9 @@ export interface CountdownProps {
 export interface WinnersProps {
   winners: User[]
 }
+
+export interface ActionButtonsPros {
+  handleRecargar: () => void
+  handleEmpezarSorteo: () => void
+  cargando: boolean
+}
