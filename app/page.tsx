@@ -78,16 +78,7 @@ export default function Sorteo() {
   }
 
   return (
-    <section className='relative flex flex-col justify-center w-full col-start-2'>
-      <Image
-        src={'/assets/fondo-fic.png'}
-        alt='Sponsors FIC Parte 1'
-        width={1500}
-        height={1080}
-        className='absolute h-full w-full object-cover opacity-40 -z-10'
-        //bg-fic bg-cover bg-center
-      />
-
+    <>
       <Confetti
         width={window.innerWidth}
         height={window.innerHeight}
@@ -98,95 +89,106 @@ export default function Sorteo() {
             : 'transition-opacity duration-0 opacity-100'
         }`}
       />
-      <div className='flex justify-center w-full p-4'>
+      <section className='relative flex flex-col justify-center w-full col-start-2'>
         <Image
-          src='/assets/logo-fic.png'
-          alt='Fiesta nacional del inmigrante y las colectividades.'
-          width={600}
-          height={220}
+          src={'/assets/fondo-fic.png'}
+          alt='Sponsors FIC Parte 1'
+          width={1500}
+          height={1080}
+          className='absolute h-full w-full object-cover opacity-30 -z-10'
+          //bg-fic bg-cover bg-center
         />
-      </div>
-      <div className='w-full min-h-96 flex flex-col items-center gap-y-8'>
-        <div className='flex space-x-4'>
-          <Button
-            onClick={handleRecargar}
-            className='text-lg'
-            disabled={cargando}
-          >
-            Recargar
-          </Button>
-          <Button
-            onClick={handleEmpezarSorteo}
-            className='text-lg'
-            disabled={cargando}
-          >
-            Empezar
-          </Button>
+
+        <div className='flex justify-center w-full p-4'>
+          <Image
+            src='/assets/logo-fic.png'
+            alt='Fiesta nacional del inmigrante y las colectividades.'
+            width={600}
+            height={220}
+          />
         </div>
+        <div className='w-full min-h-96 flex flex-col items-center gap-y-8'>
+          <div className='flex space-x-4'>
+            <Button
+              onClick={handleRecargar}
+              className='text-lg'
+              disabled={cargando}
+            >
+              Recargar
+            </Button>
+            <Button
+              onClick={handleEmpezarSorteo}
+              className='text-lg'
+              disabled={cargando}
+            >
+              Empezar
+            </Button>
+          </div>
 
-        <section>
-          <AnimatePresence mode='wait'>
-            {showContador && (
-              <motion.div
-                key='contador'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                aria-live='polite'
-              >
-                <Countdown count={count} progress={progress} />
-              </motion.div>
-            )}
-            {showGanadores && (
-              <motion.div
-                key='ganadores'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 2 }}
-                className='w-full'
-              >
-                <h2 className='text-2xl font-bold mb-2'>Ganadores:</h2>
-                <ol className='list-decimal list-inside'>
-                  {ganadores.map((ganador, index) => (
-                    <li
-                      key={ganador.id}
-                      className={`mb-2 ${
-                        index === 0
-                          ? 'text-2xl font-bold'
-                          : index === 1
-                          ? 'text-xl font-semibold'
-                          : 'text-lg'
-                      }`}
-                    >
-                      {ganador.nombre}
-                    </li>
-                  ))}
-                </ol>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <section>
+            <AnimatePresence mode='wait'>
+              {showContador && (
+                <motion.div
+                  key='contador'
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  aria-live='polite'
+                >
+                  <Countdown count={count} progress={progress} />
+                </motion.div>
+              )}
+              {showGanadores && (
+                <motion.div
+                  key='ganadores'
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 2 }}
+                  className='w-full'
+                >
+                  <h2 className='text-2xl font-bold mb-2'>Ganadores:</h2>
+                  <ol className='list-decimal list-inside'>
+                    {ganadores.map((ganador, index) => (
+                      <li
+                        key={ganador.id}
+                        className={`mb-2 ${
+                          index === 0
+                            ? 'text-2xl font-bold'
+                            : index === 1
+                            ? 'text-xl font-semibold'
+                            : 'text-lg'
+                        }`}
+                      >
+                        {ganador.nombre}
+                      </li>
+                    ))}
+                  </ol>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-          <AnimatePresence>
-            {participantes.length > 0 && !cargando && !ganadores && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <h2 className='text-xl font-bold mb-2'>Participantes:</h2>
-                <ul>
-                  {participantes.map((participante) => (
-                    <li key={participante.id}>{participante.nombre}</li>
-                  ))}
-                </ul>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </section>
-      </div>
-    </section>
+            <AnimatePresence>
+              {participantes.length > 0 && !cargando && !ganadores && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h2 className='text-xl font-bold mb-2'>Participantes:</h2>
+                  <ul>
+                    {participantes.map((participante) => (
+                      <li key={participante.id}>{participante.nombre}</li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </section>
+        </div>
+      </section>
+    </>
   )
 }
