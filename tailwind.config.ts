@@ -9,6 +9,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      container: {
+        center: true,
+        screens: {
+          '3xl': '1600px',
+          '4xl': '1920px'
+        }
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -65,7 +72,14 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)'
       },
       transitionDuration: {
-        '4000': '4000ms'
+        '10000': '10000ms'
+      },
+      backgroundImage: {
+        fic: 'url("/assets/fondo-fic.png"), linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(22, 43, 76, 0.4))'
+      },
+      gridTemplateColumns: {
+        // Complex site-specific column configuration
+        fic: '250px 1fr 250px'
       }
     }
   },
