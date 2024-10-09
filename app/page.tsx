@@ -6,8 +6,10 @@ import Confetti from 'react-confetti'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import Countdown from '@/components/countdown'
-import { reloadParticipants, startDraw, User } from '../lib/actions'
+import { reloadParticipants, startDraw } from '../lib/actions'
 import { useCountdown } from '@/hooks/use-coundown'
+import { WinnerList } from '@/components/winner-list'
+import { User } from '@/interfaces/actions'
 
 export default function Sorteo() {
   const [participantes, setParticipantes] = useState<User[]>([])
@@ -89,7 +91,8 @@ export default function Sorteo() {
             : 'transition-opacity duration-0 opacity-100'
         }`}
       />
-      <section className='relative flex flex-col justify-center w-full col-start-2'>
+
+      <section className='relative flex flex-col w-full col-start-2'>
         <Image
           src={'/assets/fondo-fic.png'}
           alt='Sponsors FIC Parte 1'
@@ -107,9 +110,11 @@ export default function Sorteo() {
             height={220}
           />
         </div>
+
         <div className='w-full min-h-96 flex flex-col items-center gap-y-8'>
           <div className='flex space-x-4'>
             <Button
+              variant='secondary'
               onClick={handleRecargar}
               className='text-lg'
               disabled={cargando}
@@ -117,6 +122,7 @@ export default function Sorteo() {
               Recargar
             </Button>
             <Button
+              variant='secondary'
               onClick={handleEmpezarSorteo}
               className='text-lg'
               disabled={cargando}
@@ -125,7 +131,7 @@ export default function Sorteo() {
             </Button>
           </div>
 
-          <section>
+          <article>
             <AnimatePresence mode='wait'>
               {showContador && (
                 <motion.div
@@ -135,38 +141,12 @@ export default function Sorteo() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
                   aria-live='polite'
+                  className='mt-20'
                 >
                   <Countdown count={count} progress={progress} />
                 </motion.div>
               )}
-              {showGanadores && (
-                <motion.div
-                  key='ganadores'
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 2 }}
-                  className='w-full'
-                >
-                  <h2 className='text-2xl font-bold mb-2'>Ganadores:</h2>
-                  <ol className='list-decimal list-inside'>
-                    {ganadores.map((ganador, index) => (
-                      <li
-                        key={ganador.id}
-                        className={`mb-2 ${
-                          index === 0
-                            ? 'text-2xl font-bold'
-                            : index === 1
-                            ? 'text-xl font-semibold'
-                            : 'text-lg'
-                        }`}
-                      >
-                        {ganador.nombre}
-                      </li>
-                    ))}
-                  </ol>
-                </motion.div>
-              )}
+              {showGanadores && <WinnerList winners={ganadores} />}
             </AnimatePresence>
 
             <AnimatePresence>
@@ -186,7 +166,7 @@ export default function Sorteo() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </section>
+          </article>
         </div>
       </section>
     </>

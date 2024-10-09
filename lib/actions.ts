@@ -1,11 +1,6 @@
 'use server'
 import { setTimeout } from 'timers/promises'
 
-export type User = {
-  id: number
-  nombre: string
-}
-
 // Lista de usuarios proporcionada
 const users = [
   { id: 1, nombre: 'Kevin soria' },

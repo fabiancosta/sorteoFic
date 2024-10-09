@@ -1,9 +1,6 @@
 'use client'
+import { CountdownProps } from '@/interfaces/components'
 
-interface CountdownProps {
-  count: number
-  progress: number
-}
 export default function Countdown({ count, progress }: CountdownProps) {
   const showNumber = count >= 0 || progress < 100 // Ajustamos el umbral para ocultar el número
 
@@ -20,7 +17,7 @@ export default function Countdown({ count, progress }: CountdownProps) {
           cy='50'
         />
         <circle
-          className='text-azul transition-all duration-[16.67ms] ease-linear'
+          className='text-azul-foreground transition-all duration-20 ease-linear'
           strokeWidth='8'
           stroke='currentColor'
           fill='transparent'
@@ -34,7 +31,9 @@ export default function Countdown({ count, progress }: CountdownProps) {
       </svg>
       <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center'>
         {showNumber && (
-          <span className='text-7xl font-bold text-azul'>{count}</span>
+          <span className='text-7xl font-bold text-azul-foreground'>
+            {count}
+          </span>
         )}
       </div>
     </div>

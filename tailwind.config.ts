@@ -72,6 +72,7 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)'
       },
       transitionDuration: {
+        '20': '20ms',
         '10000': '10000ms'
       },
       backgroundImage: {
