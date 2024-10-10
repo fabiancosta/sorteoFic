@@ -22,6 +22,7 @@ export default function Sorteo() {
   const [showContador, setShowContador] = useState(false)
   const [isCounting, setIsCounting] = useState(false)
   const [hideParticipants, setHideParticipants] = useState(false)
+  const [offConfeti, setOffConfeti] = useState(false)
   const router = useRouter()
 
   const { count, progress } = useCountdown(
@@ -32,6 +33,7 @@ export default function Sorteo() {
 
   useEffect(() => {
     if (contador === 0) {
+      setOffConfeti(true)
       setShowConfetti(true)
       setShowContador(false)
       setTimeout(() => {
@@ -42,6 +44,7 @@ export default function Sorteo() {
   }, [contador])
 
   const handleRecargar = async () => {
+    setParticipantes([])
     setTimeout(() => {
       setHideParticipants(false)
     }, 2000)
@@ -83,8 +86,10 @@ export default function Sorteo() {
       }, 1000)
     }, 1000)
 
-    const { winners } = await getWinners(4)
-    setGanadores(winners)
+    const { winners } = await getWinners()
+    setTimeout(() => {
+      setGanadores(winners)
+    }, 500)
   }
 
   return (
@@ -92,24 +97,12 @@ export default function Sorteo() {
       <Confetti
         width={1920}
         height={968}
+        run={offConfeti}
         recycle={showConfetti}
-        className={`opacity-0 ${
-          showConfetti === false
-            ? 'transition-opacity duration-10000 opacity-0'
-            : 'transition-opacity duration-20 opacity-100'
-        }`}
+        numberOfPieces={400}
       />
 
       <section className='relative flex flex-col w-full col-start-2'>
-        <Image
-          src={'/assets/fondo-fic.png'}
-          alt='Sponsors FIC Parte 1'
-          width={1500}
-          height={1080}
-          className='absolute h-full w-full object-cover opacity-30 -z-10'
-          //bg-fic bg-cover bg-center
-        />
-
         <div className='flex justify-center w-full p-4'>
           <Image
             src='/assets/logo-fic.png'
@@ -119,7 +112,7 @@ export default function Sorteo() {
           />
         </div>
 
-        <div className='w-full min-h-96 flex flex-col items-center gap-y-8'>
+        <div className='w-full min-w-96 min-h-96 flex flex-col items-center gap-y-8'>
           <ActionButtons
             handleRecargar={handleRecargar}
             handleEmpezarSorteo={handleEmpezarSorteo}
@@ -140,6 +133,10 @@ export default function Sorteo() {
             </AnimatePresence>
 
             <AnimatePresence mode='wait'>
+              {showGanadores && <WinnerList winners={ganadores} />}
+            </AnimatePresence>
+
+            <AnimatePresence mode='wait'>
               {showContador && (
                 <motion.div
                   key='contador'
@@ -153,10 +150,6 @@ export default function Sorteo() {
                   <Countdown count={count} progress={progress} />
                 </motion.div>
               )}
-            </AnimatePresence>
-
-            <AnimatePresence mode='wait'>
-              {showGanadores && <WinnerList winners={ganadores} />}
             </AnimatePresence>
           </article>
         </div>

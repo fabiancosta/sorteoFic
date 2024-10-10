@@ -53,7 +53,7 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
         transition={{ duration: 0.5, delay: 0.5 }}
       >
         <h1 className='text-4xl font-bold text-center mb-8 text-gray-800'>
-          Ganadores del Sorteo
+          {winners.length > 1 ? 'Ganadores del Sorteo' : 'Ganador del Sorteo'}
         </h1>
         <motion.ul
           variants={containerVariants}

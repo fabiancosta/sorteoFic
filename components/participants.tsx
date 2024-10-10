@@ -32,8 +32,8 @@ export default function ParticipantWhitFlags({
 }: ParticipantsList) {
   return (
     <div className='w-full p-4 overflow-hidden'>
-      <h2 className='text-3xl font-bold mb-4'>Últimos 15 participantes:</h2>
-      <div className='grid grid-flow-dense gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 2xl:grid-cols-5'>
+      <h2 className='text-3xl font-bold mb-4'>{`Últimos ${participants.length} participantes:`}</h2>
+      <div className='grid grid-flow-dense gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4 2xl:grid-cols-5'>
         {participants.map((participant) => {
           const randomCountryCode =
             countryCodes[Math.floor(Math.random() * countryCodes.length)]

@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import { screens } from 'tailwindcss/defaultTheme'
 
 const config: Config = {
   darkMode: ['class'],
@@ -12,6 +13,7 @@ const config: Config = {
       container: {
         center: true,
         screens: {
+          ...screens,
           '3xl': '1600px',
           '4xl': '1920px'
         }
@@ -80,7 +82,8 @@ const config: Config = {
       },
       gridTemplateColumns: {
         // Complex site-specific column configuration
-        fic: '250px 1fr 250px'
+        fic: '300px 1fr 300px',
+        'small-fic': '220px 1fr 220px'
       }
     }
   },

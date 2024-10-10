@@ -11,7 +11,7 @@ export const ActionButtons = ({
       <Button
         variant='secondary'
         onClick={handleRecargar}
-        className='text-lg'
+        className='text-lg font-bold'
         disabled={cargando}
       >
         Recargar
@@ -19,7 +19,7 @@ export const ActionButtons = ({
       <Button
         variant='secondary'
         onClick={handleEmpezarSorteo}
-        className='text-lg'
+        className='text-lg font-bold'
         disabled={cargando}
       >
         Empezar
