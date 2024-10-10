@@ -83,7 +83,7 @@ export default function Sorteo() {
       }, 1000)
     }, 1000)
 
-    const { winners } = await getWinners(5)
+    const { winners } = await getWinners(4)
     setGanadores(winners)
   }
 

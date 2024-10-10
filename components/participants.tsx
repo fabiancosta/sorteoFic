@@ -52,7 +52,10 @@ export default function ParticipantWhitFlags({
                 className='absolute h-full w-full object-cover opacity-60 -z-10'
               />
               <div className='absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center p-1'>
-                <span className='text-white text-sm font-bold text-center break-words'>
+                <span
+                  className='text-white text-sm font-bold text-center truncate p-2'
+                  lang='es'
+                >
                   {participant.nombre}
                 </span>
               </div>
