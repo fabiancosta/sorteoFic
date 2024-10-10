@@ -9,7 +9,8 @@ const nextConfig = {
         pathname: '/**/flat/64.png'
       }
     ]
-  }
+  },
+  output: 'standalone'
 }
 
 export default nextConfig

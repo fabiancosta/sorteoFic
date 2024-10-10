@@ -1,0 +1,12 @@
+Dockerfile
+.dockerignore
+node_modules
+.vscode
+npm-debug.log
+README.md
+.next
+!.next/static
+!.next/standalone
+.git
+docker
+Makefile

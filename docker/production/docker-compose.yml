@@ -1,0 +1,15 @@
+services:
+  app:
+    container_name: sorteofic-ui
+    build:
+      context: ../..
+      dockerfile: docker/production/Dockerfile
+      # Si necesitas pasar variables de entorno en la construcción, puedes descomentar las siguientes líneas:
+      # args:
+      #   ENV_VARIABLE: ${ENV_VARIABLE}  # Inyecta variables de entorno para la construcción
+      #   NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
+    image: sorteofic-ui:latest # Nombre de la imagen que se construirá
+    ports:
+      - '3000:3000' # Mapear puerto 3000 del host al puerto 3000 del contenedor
+    env_file:
+      - ../../.env # Archivo .env para las variables de entorno en tiempo de ejecución
