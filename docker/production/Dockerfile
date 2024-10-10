@@ -1,4 +1,4 @@
-FROM node:lts-alpine AS base
+FROM node:18.17.0-alpine AS base
 
 FROM base AS builder
 
