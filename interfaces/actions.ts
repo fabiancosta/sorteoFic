@@ -1,14 +1,4 @@
-export type User = {
-  id: number
-  nombre: string
-}
-
-export interface PromiseParticipants {
-  participants: string[]
-  winners: Winner[]
-}
-
-export interface Winner {
+export interface ParticipantData {
   dni: string
   email: string
   firstName: string
@@ -16,4 +6,13 @@ export interface Winner {
   phoneNumber: string
   position: number
   timestamp: string
+}
+
+export interface WinnersList {
+  participants: string[]
+  winners: ParticipantData[]
+}
+
+export interface ParticipantsList {
+  participants: ParticipantData[]
 }

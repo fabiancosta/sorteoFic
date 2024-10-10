@@ -8,13 +8,13 @@ import Countdown from '@/components/countdown'
 import { getWinners, reloadParticipants } from '../lib/actions'
 import { useCountdown } from '@/hooks/use-coundown'
 import { WinnerList } from '@/components/winner-list'
-import { User, Winner } from '@/interfaces/actions'
+import { ParticipantData } from '@/interfaces/actions'
 import { ActionButtons } from '@/components/action-buttons'
 import ParticipantWhitFlags from '@/components/participants'
 
 export default function Sorteo() {
-  const [participantes, setParticipantes] = useState<User[]>([])
-  const [ganadores, setGanadores] = useState<Winner[]>([])
+  const [participantes, setParticipantes] = useState<ParticipantData[]>([])
+  const [ganadores, setGanadores] = useState<ParticipantData[]>([])
   const [contador, setContador] = useState(5)
   const [cargando, setCargando] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)

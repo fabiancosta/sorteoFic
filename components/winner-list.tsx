@@ -1,10 +1,10 @@
 'use client'
-import { Winner } from '@/interfaces/actions'
+import { ParticipantData } from '@/interfaces/actions'
 import { motion } from 'framer-motion'
 import { Trophy, Medal, Award } from 'lucide-react'
 
 type WinnerListProp = {
-  winners: Winner[]
+  winners: ParticipantData[]
 }
 export const WinnerList = ({ winners }: WinnerListProp) => {
   const containerVariants = {
