@@ -28,6 +28,8 @@ export async function getWinners(players: number = 3): Promise<WinnersList> {
     .then((res) => res.json())
     .catch((error) => console.log(error))
 
+  console.log(response?.winners)
+
   return response
 }
 

@@ -46,7 +46,7 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
   return (
     <div className='flex items-center justify-center p-4'>
       <motion.div
-        className='bg-white rounded-lg shadow-xl p-8 w-[480px] h-auto max-w-2xl'
+        className='bg-white rounded-lg shadow-xl p-8 w-[520px] h-auto max-w-2xl'
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -84,7 +84,7 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
                   winner.position < 3 ? 'text-xl font-semibold' : 'text-lg'
                 }`}
               >
-                {winner.lastName + ' ' + winner.firstName}
+                {winner.dni + ' ' + winner.lastName + ' ' + winner.firstName}
               </span>
             </motion.li>
           ))}
