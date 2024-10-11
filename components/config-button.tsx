@@ -12,15 +12,16 @@ import {
 import { SessionStorageContext } from '@/context/session-provider'
 
 export function SettingsButton() {
-  const { winners, apiKey, updateNumberValue, updatePasswordValue } =
-    useContext(SessionStorageContext)
+  const { winners, apiKey, updateKeyValue, updateWinnersValue } = useContext(
+    SessionStorageContext
+  )
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateNumberValue(e.target.value)
+    updateWinnersValue(Number(e.target.value))
   }
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updatePasswordValue(e.target.value)
+    updateKeyValue(e.target.value)
   }
 
   return (
@@ -48,7 +49,7 @@ export function SettingsButton() {
               <Input
                 id='winners'
                 type='number'
-                defaultValue={Number(winners)}
+                defaultValue={winners}
                 onChange={handleNumberChange}
                 className='col-span-2 h-8 font-semibold'
               />
