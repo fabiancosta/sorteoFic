@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Confetti from 'react-confetti'
@@ -11,6 +11,7 @@ import { WinnerList } from '@/components/winner-list'
 import { ParticipantData } from '@/interfaces/actions'
 import { ActionButtons } from '@/components/action-buttons'
 import ParticipantWhitFlags from '@/components/participants'
+import { SessionStorageContext } from '@/context/session-provider'
 
 export default function Sorteo() {
   const [participantes, setParticipantes] = useState<ParticipantData[]>([])
@@ -23,7 +24,6 @@ export default function Sorteo() {
   const [isCounting, setIsCounting] = useState(false)
   const [hideParticipants, setHideParticipants] = useState(false)
   const [offConfeti, setOffConfeti] = useState(false)
-  const [definirGanadores, setDefinirGanadores] = useState(3)
   const router = useRouter()
 
   const { count, progress } = useCountdown(
@@ -31,6 +31,8 @@ export default function Sorteo() {
     contador,
     isCounting
   )
+
+  const context = useContext(SessionStorageContext)
 
   useEffect(() => {
     if (contador === 0) {
@@ -56,7 +58,7 @@ export default function Sorteo() {
     setCargando(true)
     setIsCounting(false)
     setContador(5)
-    //Simular el pedido a la API
+
     const nuevosParticipantes = await reloadParticipants()
     setTimeout(() => {
       setParticipantes(nuevosParticipantes)
@@ -87,7 +89,7 @@ export default function Sorteo() {
       }, 1000)
     }, 1000)
 
-    const { winners } = await getWinners(definirGanadores)
+    const { winners } = await getWinners(Number(context.winners))
     setTimeout(() => {
       setGanadores(winners)
     }, 500)
@@ -115,8 +117,6 @@ export default function Sorteo() {
 
         <div className='w-full min-w-96 min-h-96 flex flex-col items-center gap-y-8'>
           <ActionButtons
-            definirGanadores={definirGanadores}
-            setDefinirGanadores={setDefinirGanadores}
             handleRecargar={handleRecargar}
             handleEmpezarSorteo={handleEmpezarSorteo}
             cargando={cargando}

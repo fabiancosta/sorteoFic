@@ -1,8 +1,14 @@
 'use client'
+import { SessionStorageContextType } from '@/interfaces/contexts'
 import React, { createContext, useState, useEffect } from 'react'
 
 // Creamos el contexto
-export const SessionStorageContext = createContext({})
+export const SessionStorageContext = createContext<SessionStorageContextType>({
+  winners: 3,
+  apiKey: '',
+  updateWinnersValue: () => {},
+  updateKeyValue: () => {}
+})
 
 // Proveedor del contexto
 export const SessionStorageProvider = ({
@@ -10,7 +16,7 @@ export const SessionStorageProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  const [winners, setWinners] = useState('3')
+  const [winners, setWinners] = useState(3)
   const [apiKey, setApiKey] = useState('')
 
   useEffect(() => {
@@ -18,22 +24,22 @@ export const SessionStorageProvider = ({
     const storedPassword = sessionStorage.getItem('apiKeyValue')
 
     if (storedNumber) {
-      setWinners(storedNumber)
+      setWinners(Number(storedNumber))
     }
     if (storedPassword) {
       setApiKey(storedPassword)
     }
   }, [])
 
-  const updateNumberValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value
-    setWinners(newValue)
-    sessionStorage.setItem('winnersValue', newValue)
+  const updateWinnersValue = (value: number) => {
+    const newValue = value
+    setWinners(value)
+    sessionStorage.setItem('winnersValue', String(newValue))
   }
 
-  const updatePasswordValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value
-    setApiKey(newValue)
+  const updateKeyValue = (value: string) => {
+    const newValue = value
+    setApiKey(value)
     sessionStorage.setItem('apiKeyValue', newValue)
   }
 
@@ -42,8 +48,8 @@ export const SessionStorageProvider = ({
       value={{
         winners,
         apiKey,
-        updateNumberValue,
-        updatePasswordValue
+        updateWinnersValue,
+        updateKeyValue
       }}
     >
       {children}
