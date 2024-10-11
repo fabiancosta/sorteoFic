@@ -46,13 +46,13 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
   return (
     <div className='flex items-center justify-center p-4'>
       <motion.div
-        className='bg-white rounded-lg shadow-xl p-8 w-[520px] h-auto max-w-2xl'
+        className='bg-white rounded-lg shadow-xl p-6 w-[520px] h-auto max-w-2xl'
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        <h1 className='text-4xl font-bold text-center mb-8 text-gray-800'>
+        <h1 className='text-4xl font-bold text-center mb-4 text-gray-800'>
           {winners.length > 1 ? 'Ganadores del Sorteo' : 'Ganador del Sorteo'}
         </h1>
         <motion.ul
@@ -65,7 +65,7 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
             <motion.li
               key={winner.position}
               variants={itemVariants}
-              className={`flex items-center p-4 gap-x-4 rounded-lg ${
+              className={`flex items-center p-3 gap-x-2 rounded-lg ${
                 winner.position === 1
                   ? 'bg-gradient-to-r from-yellow-300 to-yellow-500'
                   : winner.position === 2
@@ -80,11 +80,12 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
               </span>
               <span>{getIcon(winner.position)}</span>
               <span
-                className={`text-gray-800 truncate ${
+                className={`flex flex-col text-gray-800 truncate ${
                   winner.position < 3 ? 'text-xl font-semibold' : 'text-lg'
                 }`}
               >
-                {winner.dni + ' ' + winner.lastName + ' ' + winner.firstName}
+                {winner.lastName + ' ' + winner.firstName}
+                <p className='text-xs'>{'DNI: ' + winner.dni}</p>
               </span>
             </motion.li>
           ))}
