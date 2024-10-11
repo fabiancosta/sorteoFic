@@ -1,3 +1,4 @@
+import { SessionStorageProvider } from '@/context/session-provider'
 import Image from 'next/image'
 import { Suspense } from 'react'
 
@@ -19,7 +20,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
           </div>
         }
       >
-        {children}
+        <SessionStorageProvider>{children}</SessionStorageProvider>
       </Suspense>
       <article className='col-start-3 place-self-center'>
         <Image

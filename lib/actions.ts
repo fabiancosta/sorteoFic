@@ -18,7 +18,7 @@ async function getParticipants(players: number): Promise<ParticipantsList> {
 }
 
 export async function getWinners(players: number = 3): Promise<WinnersList> {
-  const response = await fetch(`${WINNERS_URL}?winners=${players}`, {
+  const response = await fetch(`${WINNERS_URL}?winners=${Number(players)}`, {
     headers: {
       'X-Api-Key': API_KEY
     }

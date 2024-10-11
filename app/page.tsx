@@ -23,6 +23,7 @@ export default function Sorteo() {
   const [isCounting, setIsCounting] = useState(false)
   const [hideParticipants, setHideParticipants] = useState(false)
   const [offConfeti, setOffConfeti] = useState(false)
+  const [definirGanadores, setDefinirGanadores] = useState(3)
   const router = useRouter()
 
   const { count, progress } = useCountdown(
@@ -86,7 +87,7 @@ export default function Sorteo() {
       }, 1000)
     }, 1000)
 
-    const { winners } = await getWinners()
+    const { winners } = await getWinners(definirGanadores)
     setTimeout(() => {
       setGanadores(winners)
     }, 500)
@@ -114,6 +115,8 @@ export default function Sorteo() {
 
         <div className='w-full min-w-96 min-h-96 flex flex-col items-center gap-y-8'>
           <ActionButtons
+            definirGanadores={definirGanadores}
+            setDefinirGanadores={setDefinirGanadores}
             handleRecargar={handleRecargar}
             handleEmpezarSorteo={handleEmpezarSorteo}
             cargando={cargando}

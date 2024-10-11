@@ -29,7 +29,6 @@ export default function RootLayout({
           width={1920}
           height={1080}
           className='absolute h-full w-full object-cover opacity-30 -z-10'
-          //bg-fic bg-cover bg-center
         />
 
         {children}
