@@ -1,20 +1,14 @@
-import { User } from './actions'
+import { SetStateAction } from 'react'
 
 export interface CountdownProps {
   count: number
   progress: number
 }
 
-export interface WinnersProps {
-  winners: User[]
-}
-
 export interface ActionButtonsPros {
+  definirGanadores: number
+  setDefinirGanadores: React.Dispatch<SetStateAction<number>>
   handleRecargar: () => void
   handleEmpezarSorteo: () => void
   cargando: boolean
-}
-
-export interface ParticipantFlagsProps {
-  participants: User[]
 }

@@ -1,10 +1,10 @@
 'use client'
-import { Winner } from '@/interfaces/actions'
+import { ParticipantData } from '@/interfaces/actions'
 import { motion } from 'framer-motion'
 import { Trophy, Medal, Award } from 'lucide-react'
 
 type WinnerListProp = {
-  winners: Winner[]
+  winners: ParticipantData[]
 }
 export const WinnerList = ({ winners }: WinnerListProp) => {
   const containerVariants = {
@@ -46,14 +46,14 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
   return (
     <div className='flex items-center justify-center p-4'>
       <motion.div
-        className='bg-white rounded-lg shadow-xl p-8 w-[480px] h-[520px] max-w-2xl'
+        className='bg-white rounded-lg shadow-xl p-8 w-[480px] h-auto max-w-2xl'
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
         <h1 className='text-4xl font-bold text-center mb-8 text-gray-800'>
-          Ganadores del Sorteo
+          {winners.length > 1 ? 'Ganadores del Sorteo' : 'Ganador del Sorteo'}
         </h1>
         <motion.ul
           variants={containerVariants}
@@ -65,7 +65,7 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
             <motion.li
               key={winner.position}
               variants={itemVariants}
-              className={`flex items-center p-4 rounded-lg ${
+              className={`flex items-center p-4 gap-x-4 rounded-lg ${
                 winner.position === 1
                   ? 'bg-gradient-to-r from-yellow-300 to-yellow-500'
                   : winner.position === 2
@@ -75,12 +75,12 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
                   : 'bg-gray-100 hover:bg-gray-200 transition-colors duration-300'
               }`}
             >
-              <span className='text-2xl font-bold mr-4 w-8 text-center'>
+              <span className='text-2xl font-bold w-8 text-center'>
                 {winner.position}
               </span>
-              {getIcon(winner.position)}
+              <span>{getIcon(winner.position)}</span>
               <span
-                className={`ml-4 text-gray-800 ${
+                className={`text-gray-800 truncate ${
                   winner.position < 3 ? 'text-xl font-semibold' : 'text-lg'
                 }`}
               >

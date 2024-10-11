@@ -1,39 +1,35 @@
 'use server'
-import { PromiseParticipants } from '@/interfaces/actions'
+import { ParticipantsList, WinnersList } from '@/interfaces/actions'
 
-const GET_WINNERS_URL = process.env.NEXT_PUBLIC_GET_WINNERS as string
-const GET_WINNERS_API_KEY = process.env.NEXT_PUBLIC_API_KEY_WINNERS as string
+const WINNERS_URL = process.env.NEXT_PUBLIC_GET_WINNERS as string
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY_WINNERS as string
+const PARTICIPANTS_URL = process.env.NEXT_PUBLIC_GET_PARTICIPANTS as string
 
-// Lista de usuarios proporcionada
-const users = [
-  { id: 1, nombre: 'Kevin soria' },
-  { id: 2, nombre: 'Emilia granata' },
-  { id: 3, nombre: 'conquiista desierta' },
-  { id: 4, nombre: 'gran general roca' },
-  { id: 5, nombre: 'urquiza e iriburu' },
-  { id: 6, nombre: 'don rodolfo buenaparte' }
-]
-
-// Simula una llamada a la base de datos para obtener participantes
-async function getParticipants() {
-  return users
-}
-
-export async function getWinners(
-  players: number
-): Promise<PromiseParticipants> {
-  // Aquí normalmente harías una llamada a tu base de datos
-  const response = await fetch(`${GET_WINNERS_URL}?winners=${players}`, {
+async function getParticipants(players: number): Promise<ParticipantsList> {
+  const response = await fetch(`${PARTICIPANTS_URL}?quantity=${players}`, {
     headers: {
-      'X-Api-Key': GET_WINNERS_API_KEY
+      'X-Api-Key': API_KEY
     }
-  }).then((res) => res.json())
+  })
+    .then((res) => res.json())
+    .catch((error) => console.log(error))
 
   return response
 }
 
-// Llama a la API para obtener el listado nuevo de participantes.
-export async function reloadParticipants() {
-  const participants = await getParticipants()
+export async function getWinners(players: number = 3): Promise<WinnersList> {
+  const response = await fetch(`${WINNERS_URL}?winners=${Number(players)}`, {
+    headers: {
+      'X-Api-Key': API_KEY
+    }
+  })
+    .then((res) => res.json())
+    .catch((error) => console.log(error))
+
+  return response
+}
+
+export async function reloadParticipants(players: number = 15) {
+  const { participants } = await getParticipants(players)
   return participants
 }
