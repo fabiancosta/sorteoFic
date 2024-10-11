@@ -1,26 +1,24 @@
 'use client'
 import { ActionButtonsPros } from '@/interfaces/components'
 import { Button } from './ui/button'
-import { Input } from './ui/input'
-// import { SettingsButton } from './config-button'
+import { SettingsButton } from './config-button'
+import { SessionStorageContext } from '@/context/session-provider'
+import { useContext } from 'react'
 
 export const ActionButtons = ({
-  definirGanadores,
-  setDefinirGanadores,
   handleRecargar,
   handleEmpezarSorteo,
   cargando
 }: ActionButtonsPros) => {
-  const handleWinners = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDefinirGanadores(Number(e.target.value))
-  }
+  const { apiKey } = useContext(SessionStorageContext)
+
   return (
     <div className='flex space-x-4'>
       <Button
         variant='secondary'
         onClick={handleRecargar}
         className='text-lg font-bold'
-        disabled={cargando}
+        disabled={cargando || apiKey.length < 10}
       >
         Recargar
       </Button>
@@ -28,17 +26,11 @@ export const ActionButtons = ({
         variant='secondary'
         onClick={handleEmpezarSorteo}
         className='text-lg font-bold'
-        disabled={cargando}
+        disabled={cargando || apiKey.length < 10}
       >
         Empezar
       </Button>
-      {/* <SettingsButton /> */}
-      <Input
-        type='number'
-        className='text-lg font-bold max-w-16'
-        defaultValue={definirGanadores}
-        onChange={(e) => handleWinners(e)}
-      />
+      <SettingsButton />
     </div>
   )
 }

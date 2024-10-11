@@ -1,11 +1,11 @@
-'use server'
+'use client'
 import { ParticipantsList, WinnersList } from '@/interfaces/actions'
 
 const WINNERS_URL = process.env.NEXT_PUBLIC_GET_WINNERS as string
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY_WINNERS as string
 const PARTICIPANTS_URL = process.env.NEXT_PUBLIC_GET_PARTICIPANTS as string
 
 async function getParticipants(players: number): Promise<ParticipantsList> {
+  const API_KEY = sessionStorage.getItem('apiKeyValue') as string //process.env.NEXT_PUBLIC_API_KEY_WINNERS as string
   const response = await fetch(`${PARTICIPANTS_URL}?quantity=${players}`, {
     headers: {
       'X-Api-Key': API_KEY
@@ -18,6 +18,8 @@ async function getParticipants(players: number): Promise<ParticipantsList> {
 }
 
 export async function getWinners(players: number = 3): Promise<WinnersList> {
+  const API_KEY = sessionStorage.getItem('apiKeyValue') as string
+
   const response = await fetch(`${WINNERS_URL}?winners=${Number(players)}`, {
     headers: {
       'X-Api-Key': API_KEY
