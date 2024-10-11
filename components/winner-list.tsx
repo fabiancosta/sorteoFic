@@ -65,7 +65,7 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
             <motion.li
               key={winner.position}
               variants={itemVariants}
-              className={`flex items-center p-4 gap-x-4 rounded-lg ${
+              className={`flex items-center p-3 gap-x-4 rounded-lg ${
                 winner.position === 1
                   ? 'bg-gradient-to-r from-yellow-300 to-yellow-500'
                   : winner.position === 2
@@ -80,11 +80,12 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
               </span>
               <span>{getIcon(winner.position)}</span>
               <span
-                className={`text-gray-800 truncate ${
+                className={`flex flex-col text-gray-800 truncate ${
                   winner.position < 3 ? 'text-xl font-semibold' : 'text-lg'
                 }`}
               >
-                {winner.dni + ' ' + winner.lastName + ' ' + winner.firstName}
+                {winner.lastName + ' ' + winner.firstName}
+                <p className='text-xs'>{'DNI: ' + winner.dni}</p>
               </span>
             </motion.li>
           ))}
