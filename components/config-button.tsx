@@ -27,7 +27,7 @@ export function SettingsButton() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant='secondary'>
+        <Button variant='outline'>
           <Settings className='h-4 w-4' />
         </Button>
       </PopoverTrigger>

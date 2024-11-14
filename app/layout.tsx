@@ -4,10 +4,12 @@ import './globals.css'
 import Image from 'next/image'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
+// Pasar el año como parametro Date()
 
 export const metadata: Metadata = {
-  title: 'FIC 2024',
-  description: 'Sorteo para la FIC.',
+  //Cambiar todo por variables a un objeto que modifique segun la necesidad de textos.
+  title: 'Festival de la Empanada',
+  description: 'Sorteo para el Festival Patagonico de la Empanada.',
   icons: {
     icon: {
       url: '/favicon.ico'
@@ -22,13 +24,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${montserrat.className} antialiased`}>
+      <body className={`${montserrat.className} antialiased relative`}>
         <Image
-          src={'/assets/fondo-fic.png'}
-          alt='Sponsors FIC Parte 1'
+          src={'/assets/fondo.png'} //Definir un nombre generico de imagen, en este caso "fondo" esta perfecto. Solo cambiar de imagen
+          alt='Sponsors FIC Parte 1' //Pasar por variable.
           width={1920}
-          height={1080}
-          className='absolute h-full w-full object-cover opacity-30 -z-10'
+          height={968}
+          className='absolute h-full w-full object-cover -z-10'
         />
 
         {children}

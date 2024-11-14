@@ -15,7 +15,7 @@ export const ActionButtons = ({
   return (
     <div className='flex space-x-4'>
       <Button
-        variant='secondary'
+        variant='outline'
         onClick={handleRecargar}
         className='text-lg font-bold'
         disabled={cargando || apiKey.length < 10}
@@ -23,7 +23,7 @@ export const ActionButtons = ({
         Recargar
       </Button>
       <Button
-        variant='secondary'
+        variant='outline'
         onClick={handleEmpezarSorteo}
         className='text-lg font-bold'
         disabled={cargando || apiKey.length < 10}

@@ -4,9 +4,8 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Confetti from 'react-confetti'
 import { motion, AnimatePresence } from 'framer-motion'
-import Countdown from '@/components/countdown'
+import { Countdown1 } from '@/components/countdown'
 import { getWinners, reloadParticipants } from '../lib/actions'
-import { useCountdown } from '@/hooks/use-coundown'
 import { WinnerList } from '@/components/winner-list'
 import { ParticipantData } from '@/interfaces/actions'
 import { ActionButtons } from '@/components/action-buttons'
@@ -21,16 +20,12 @@ export default function Sorteo() {
   const [showConfetti, setShowConfetti] = useState(false)
   const [showGanadores, setShowGanadores] = useState(false)
   const [showContador, setShowContador] = useState(false)
-  const [isCounting, setIsCounting] = useState(false)
+  // const [isCounting, setIsCounting] = useState(false)
   const [hideParticipants, setHideParticipants] = useState(false)
   const [offConfeti, setOffConfeti] = useState(false)
   const router = useRouter()
 
-  const { count, progress } = useCountdown(
-    isCounting ? contador : 0,
-    contador,
-    isCounting
-  )
+  // const { count, progress } = useCountdownV1(0, 5)
 
   const context = useContext(SessionStorageContext)
 
@@ -40,9 +35,8 @@ export default function Sorteo() {
       setShowConfetti(true)
       setShowContador(false)
       setTimeout(() => {
-        setShowGanadores(true)
         setCargando(false) // Habilita el botón de recargar
-      }, 500)
+      }, 1000)
     }
   }, [contador])
 
@@ -56,7 +50,7 @@ export default function Sorteo() {
     setShowContador(false)
     setGanadores([])
     setCargando(true)
-    setIsCounting(false)
+    // setIsCounting(false)
     setContador(5)
 
     const nuevosParticipantes = await reloadParticipants()
@@ -67,31 +61,69 @@ export default function Sorteo() {
     router.refresh()
   }
 
+  // const handleEmpezarSorteo = async () => {
+  //   setHideParticipants(true)
+  //   const { winners } = await getWinners(Number(context.winners))
+
+  //   setTimeout(() => {
+  //     setCargando(true)
+  //     setContador(5)
+  //     setGanadores([])
+  //     setShowGanadores(false)
+  //     setShowContador(true)
+  //     // setIsCounting(true)
+
+  //     const interval = setInterval(() => {
+  //       setContador((prev) => {
+  //         if (prev <= 0) {
+  //           clearInterval(interval)
+  //           // setIsCounting(false)
+  //           return 0
+  //         }
+  //         return prev - 1
+  //       })
+  //     }, 1000)
+  //   }, 1000)
+
+  //   setGanadores(winners)
+  //   setShowGanadores(true)
+  // }
+
   const handleEmpezarSorteo = async () => {
     setHideParticipants(true)
-    setTimeout(() => {
-      setCargando(true)
-      setContador(5)
-      setGanadores([])
-      setShowGanadores(false)
-      setShowContador(true)
-      setIsCounting(true)
 
-      const interval = setInterval(() => {
-        setContador((prev) => {
-          if (prev <= 0) {
-            clearInterval(interval)
-            setIsCounting(false)
-            return 0
-          }
-          return prev - 1
-        })
-      }, 1000)
-    }, 1000)
+    // Iniciar el conteo regresivo en paralelo con la obtención de ganadores
+    const countdownPromise = new Promise((resolve) => {
+      setTimeout(() => {
+        setCargando(true)
+        setContador(5)
+        setGanadores([])
+        setShowGanadores(false)
+        setShowContador(true)
 
-    const { winners } = await getWinners(Number(context.winners))
+        const interval = setInterval(() => {
+          setContador((prev) => {
+            if (prev <= 0) {
+              clearInterval(interval)
+              resolve(1) // Resolver el countdownPromise cuando termine la cuenta regresiva
+              return 0
+            }
+            return prev - 1
+          })
+        }, 1000)
+      }, 1500)
+    })
+
+    // Ejecutar ambas operaciones en paralelo
+    const [winnersResult] = await Promise.all([
+      getWinners(Number(context.winners)),
+      countdownPromise
+    ])
+
+    // Cuando ambas promesas se hayan resuelto, establecer ganadores y mostrar resultado
     setTimeout(() => {
-      setGanadores(winners)
+      setGanadores(winnersResult.winners)
+      setShowGanadores(true)
     }, 500)
   }
 
@@ -103,19 +135,20 @@ export default function Sorteo() {
         run={offConfeti}
         recycle={showConfetti}
         numberOfPieces={400}
+        className='absolute'
       />
 
       <section className='relative flex flex-col w-full col-start-2'>
-        <div className='flex justify-center w-full p-4'>
+        <div className='flex justify-center w-full p-2'>
           <Image
-            src='/assets/logo-fic.png'
+            src='/assets/logo.png'
             alt='Fiesta nacional del inmigrante y las colectividades.'
-            width={600}
-            height={220}
+            width={400}
+            height={350}
           />
         </div>
 
-        <div className='w-full min-w-96 min-h-96 flex flex-col items-center gap-y-8'>
+        <div className='w-full min-w-96 min-h-96 flex flex-col items-center gap-y-4'>
           <ActionButtons
             handleRecargar={handleRecargar}
             handleEmpezarSorteo={handleEmpezarSorteo}
@@ -146,11 +179,12 @@ export default function Sorteo() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
                   aria-live='polite'
                   className='mt-20'
                 >
-                  <Countdown count={count} progress={progress} />
+                  <Countdown1 />
+                  {/* <Countdown2 count={count} progress={progress} /> */}
                 </motion.div>
               )}
             </AnimatePresence>
