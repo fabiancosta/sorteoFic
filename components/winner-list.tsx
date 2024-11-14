@@ -72,7 +72,7 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
                   ? 'bg-gradient-to-r from-gray-300 to-gray-400 shadow-sm'
                   : winner.position === 3
                   ? 'bg-gradient-to-r from-yellow-600 to-yellow-700 shadow-sm'
-                  : 'bg-gray-100 hover:bg-gray-200 transition-colors duration-300'
+                  : 'bg-gray-300 hover:bg-gray-400 transition-colors duration-300'
               }`}
             >
               <span className='text-2xl font-bold w-8 text-center'>
@@ -88,7 +88,9 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
                     : 'text-lg font-semibold'
                 }`}
               >
-                {winner.lastName + ' ' + winner.firstName}
+                <p className='capitalize truncate'>
+                  {winner.lastName + ' ' + winner.firstName}
+                </p>
                 <p className='text-xs'>{'DNI: ' + winner.dni}</p>
               </span>
             </motion.li>

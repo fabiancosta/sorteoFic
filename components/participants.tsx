@@ -52,19 +52,19 @@ export default function ParticipantWhitFlags({
         {participants.map((participant) => (
           <div
             key={participant.dni}
-            className='relative w-44 h-28 rounded-md bg-transparent border-1 border-red-500'
+            className='relative w-52 h-32 rounded-md bg-transparent border-1 border-red-500'
           >
             <Image
               src={'/assets/fdo-nombres.png'}
-              width={176}
-              height={112}
+              width={208}
+              height={128}
               alt={`Bandera para ${participant.firstName}`}
               className='absolute h-full w-full opacity-70 -z-10'
             />
 
             <div className='absolute inset-0 flex items-center bg-opacity-20 justify-center p-1'>
               <span
-                className='text-white text-sm font-bold text-center line-clamp-2 break-words text-ellipsis overflow-hidden px-2 pt-4'
+                className='text-white text-lg font-bold text-center line-clamp-2 break-words capitalize text-ellipsis overflow-hidden px-7 pt-4'
                 lang='es'
               >
                 {participant.lastName + ' ' + participant.firstName}

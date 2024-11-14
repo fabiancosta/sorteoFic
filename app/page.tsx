@@ -20,12 +20,9 @@ export default function Sorteo() {
   const [showConfetti, setShowConfetti] = useState(false)
   const [showGanadores, setShowGanadores] = useState(false)
   const [showContador, setShowContador] = useState(false)
-  // const [isCounting, setIsCounting] = useState(false)
   const [hideParticipants, setHideParticipants] = useState(false)
   const [offConfeti, setOffConfeti] = useState(false)
   const router = useRouter()
-
-  // const { count, progress } = useCountdownV1(0, 5)
 
   const context = useContext(SessionStorageContext)
 
@@ -50,7 +47,6 @@ export default function Sorteo() {
     setShowContador(false)
     setGanadores([])
     setCargando(true)
-    // setIsCounting(false)
     setContador(5)
 
     const nuevosParticipantes = await reloadParticipants()
@@ -61,38 +57,9 @@ export default function Sorteo() {
     router.refresh()
   }
 
-  // const handleEmpezarSorteo = async () => {
-  //   setHideParticipants(true)
-  //   const { winners } = await getWinners(Number(context.winners))
-
-  //   setTimeout(() => {
-  //     setCargando(true)
-  //     setContador(5)
-  //     setGanadores([])
-  //     setShowGanadores(false)
-  //     setShowContador(true)
-  //     // setIsCounting(true)
-
-  //     const interval = setInterval(() => {
-  //       setContador((prev) => {
-  //         if (prev <= 0) {
-  //           clearInterval(interval)
-  //           // setIsCounting(false)
-  //           return 0
-  //         }
-  //         return prev - 1
-  //       })
-  //     }, 1000)
-  //   }, 1000)
-
-  //   setGanadores(winners)
-  //   setShowGanadores(true)
-  // }
-
   const handleEmpezarSorteo = async () => {
     setHideParticipants(true)
 
-    // Iniciar el conteo regresivo en paralelo con la obtención de ganadores
     const countdownPromise = new Promise((resolve) => {
       setTimeout(() => {
         setCargando(true)
@@ -105,7 +72,7 @@ export default function Sorteo() {
           setContador((prev) => {
             if (prev <= 0) {
               clearInterval(interval)
-              resolve(1) // Resolver el countdownPromise cuando termine la cuenta regresiva
+              resolve(true)
               return 0
             }
             return prev - 1
@@ -120,11 +87,8 @@ export default function Sorteo() {
       countdownPromise
     ])
 
-    // Cuando ambas promesas se hayan resuelto, establecer ganadores y mostrar resultado
-    setTimeout(() => {
-      setGanadores(winnersResult.winners)
-      setShowGanadores(true)
-    }, 500)
+    setGanadores(winnersResult.winners)
+    setShowGanadores(true)
   }
 
   return (
