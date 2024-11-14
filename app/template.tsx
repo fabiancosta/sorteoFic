@@ -8,14 +8,14 @@ export default function Template({ children }: { children: React.ReactNode }) {
       <article className='col-start-1 place-self-center'>
         <Image
           src={'/assets/sponsors-izq.png'}
-          alt='Sponsors FIC Parte 1'
+          alt='Sponsors Parte 1'
           width={300}
           height={800}
         />
       </article>
       <Suspense
         fallback={
-          <div className='min-h-screen grid place-content-center text-7xl font-bold'>
+          <div className='grid place-content-center text-7xl font-bold'>
             Cargando...
           </div>
         }
@@ -25,7 +25,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
       <article className='col-start-3 place-self-center'>
         <Image
           src={'/assets/sponsors-der.png'}
-          alt='Sponsors FIC Parte 2'
+          alt='Sponsors Parte 2'
           width={300}
           height={800}
         />

@@ -5,7 +5,7 @@ const WINNERS_URL = process.env.NEXT_PUBLIC_GET_WINNERS as string
 const PARTICIPANTS_URL = process.env.NEXT_PUBLIC_GET_PARTICIPANTS as string
 
 async function getParticipants(players: number): Promise<ParticipantsList> {
-  const API_KEY = sessionStorage.getItem('apiKeyValue') as string //process.env.NEXT_PUBLIC_API_KEY_WINNERS as string
+  const API_KEY = sessionStorage.getItem('apiKeyValue') as string
   const response = await fetch(`${PARTICIPANTS_URL}?quantity=${players}`, {
     headers: {
       'X-Api-Key': API_KEY
