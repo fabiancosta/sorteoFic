@@ -107,8 +107,8 @@ export default function Sorteo() {
           <Image
             src='/assets/logo.png'
             alt='Fiesta nacional del inmigrante y las colectividades.'
-            width={400}
-            height={350}
+            width={260}
+            height={250}
           />
         </div>
 

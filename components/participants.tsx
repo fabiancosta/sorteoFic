@@ -59,12 +59,12 @@ export default function ParticipantWhitFlags({
               width={208}
               height={128}
               alt={`Bandera para ${participant.firstName}`}
-              className='absolute h-full w-full opacity-70 -z-10'
+              className='absolute h-full w-full -z-10'
             />
 
             <div className='absolute inset-0 flex items-center bg-opacity-20 justify-center p-1'>
               <span
-                className='text-white text-lg font-bold text-center line-clamp-2 break-words capitalize text-ellipsis overflow-hidden px-7 pt-4'
+                className='text-white text-3xl font-bold text-center line-clamp-2 break-words capitalize text-ellipsis overflow-hidden px-7 pt-4'
                 lang='es'
               >
                 {participant.lastName + ' ' + participant.firstName}

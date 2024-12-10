@@ -20,10 +20,24 @@ import {
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ParticipantSchema, ParticipantSchemaType } from '@/schemas/form-sorteo'
+import {
+  ParticipantSchema,
+  type ParticipantSchemaType
+} from '@/schemas/form-sorteo'
+import { addParticipant } from '@/lib/actions'
+import type {
+  AddParticipantError,
+  AddParticipantResponse
+} from '@/interfaces/actions'
 
 export default function Page() {
   const router = useRouter()
+
+  function isAddParticipantError(
+    response: AddParticipantError | AddParticipantResponse
+  ): response is AddParticipantError {
+    return (response as AddParticipantError).message !== undefined
+  }
 
   const form = useForm<ParticipantSchemaType>({
     resolver: zodResolver(ParticipantSchema),
@@ -43,11 +57,20 @@ export default function Page() {
 
   const onError = (errors: unknown) => console.error(errors)
 
-  function onSubmit(data: ParticipantSchemaType) {
-    console.log(data)
-    router.push('/confirmed?error=El dni ya se encuentra registrado')
+  async function onSubmit(data: ParticipantSchemaType) {
+    const addNewParticipant = await addParticipant(data)
+    try {
+      if (isAddParticipantError(addNewParticipant)) {
+        router.push(`/register/confirmed?error=${addNewParticipant.message}`)
+      } else {
+        router.push(`/register/confirmed?status=${addNewParticipant.status}`)
+      }
+    } catch (error) {
+      throw error
+    }
   }
 
+  //FIXME: Agregar un div que limite el tamaño de los inputs, dentro de CardConteiner. w-1/2, modificar inputs para que ocupen todo el espacio.
   return (
     <Form {...form}>
       <form

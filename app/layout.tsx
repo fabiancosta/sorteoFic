@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
-import { Montserrat } from 'next/font/google'
+import { Bebas_Neue } from 'next/font/google'
 import './globals.css'
 
-const montserrat = Montserrat({ subsets: ['latin'] })
+// const montserrat = Montserrat({ subsets: ['latin'] })
+const Bebas = Bebas_Neue({ weight: '400', subsets: ['latin'] })
 export const metadata: Metadata = {
   //Cambiar todo por variables a un objeto que modifique segun la necesidad de textos.
-  title: 'Festival Patagónico de la Empanada',
-  description: 'Sorteo para el Festival Patagónico de la Empanada.',
+  title: 'Festival de los Food Trucks',
+  description: 'Sorteo para el Festival de los Food Trucks.',
   icons: {
     icon: {
       url: '/favicon.ico'
@@ -21,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${montserrat.className} antialiased relative`}>
+      <body className={`${Bebas.className} antialiased relative`}>
         {children}
       </body>
     </html>

@@ -15,7 +15,7 @@ export default function SorteoLayout({
   return (
     <main className='flex min-h-screen w-full flex-col items-center p-4 space-y-4 relative bg-muted'>
       <Image
-        src={'/assets/logo-form-sorteo.jpg'}
+        src={'/assets/logo-form-sorteo.jpeg'}
         alt='Logo para el formulario del sorteo.'
         width={1024}
         height={512}

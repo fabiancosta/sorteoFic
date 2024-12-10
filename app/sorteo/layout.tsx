@@ -15,7 +15,7 @@ export default function SorteoLayout({
   return (
     <>
       <Image
-        src={'/assets/fondo.png'}
+        src={'/assets/fondo.jpg'}
         alt='Imagen de fondo para el sorteo'
         width={1920}
         height={968}

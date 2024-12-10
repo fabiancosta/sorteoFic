@@ -3,11 +3,11 @@ import { z } from 'zod'
 export const ParticipantSchema = z.object({
   nombre: z.string().min(1, { message: 'El nombre es requerido' }),
   apellido: z.string().min(1, { message: 'El apellido es requerido' }),
-  dni: z.string().refine((value) => /^\d{5,8}$/.test(value), {
-    message: 'Debe contener entre 5 y 8 dígitos.'
+  dni: z.string().refine((value) => /^\d{7,8}$/.test(value), {
+    message: 'Debe contener entre 7 y 8 dígitos.'
   }),
   telefono: z.string().refine((value) => /^\d{6,10}$/.test(value), {
-    message: 'Debe contener entre 6 y 10 dígitos.'
+    message: 'Debe contener caracteristica y numero.'
   }),
   email: z
     .string()

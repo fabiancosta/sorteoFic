@@ -44,7 +44,7 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
   }
 
   return (
-    <div className='flex items-center justify-center p-4'>
+    <div className='flex items-center justify-center p-2'>
       <motion.div
         className='bg-white rounded-lg shadow-xl p-6 w-[520px] h-auto max-w-2xl'
         initial={{ scale: 0.8, opacity: 0 }}
@@ -82,16 +82,16 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
               <span
                 className={`flex flex-col text-gray-800 truncate ${
                   winner.position === 1
-                    ? 'text-2xl font-semibold'
+                    ? 'text-4xl'
                     : winner.position === 2
-                    ? 'text-xl font-semibold'
-                    : 'text-lg font-semibold'
+                    ? 'text-4xl'
+                    : 'text-3xl'
                 }`}
               >
                 <p className='capitalize truncate'>
                   {winner.lastName + ' ' + winner.firstName}
                 </p>
-                <p className='text-xs'>{'DNI: ' + winner.dni}</p>
+                <p className='text-lg'>{'DNI: ' + winner.dni}</p>
               </span>
             </motion.li>
           ))}
