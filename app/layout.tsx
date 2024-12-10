@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import { Montserrat } from 'next/font/google'
+import { Bebas_Neue } from 'next/font/google'
 import './globals.css'
-import Image from 'next/image'
 
-const montserrat = Montserrat({ subsets: ['latin'] })
-
+// const montserrat = Montserrat({ subsets: ['latin'] })
+const Bebas = Bebas_Neue({ weight: '400', subsets: ['latin'] })
 export const metadata: Metadata = {
-  title: 'FIC 2024',
-  description: 'Sorteo para la FIC.',
+  //Cambiar todo por variables a un objeto que modifique segun la necesidad de textos.
+  title: 'Festival de los Food Trucks',
+  description: 'Sorteo para el Festival de los Food Trucks.',
   icons: {
     icon: {
       url: '/favicon.ico'
@@ -22,15 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${montserrat.className} antialiased`}>
-        <Image
-          src={'/assets/fondo-fic.png'}
-          alt='Sponsors FIC Parte 1'
-          width={1920}
-          height={1080}
-          className='absolute h-full w-full object-cover opacity-30 -z-10'
-        />
-
+      <body className={`${Bebas.className} antialiased relative`}>
         {children}
       </body>
     </html>

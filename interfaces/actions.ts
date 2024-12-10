@@ -16,3 +16,12 @@ export interface WinnersList {
 export interface ParticipantsList {
   participants: ParticipantData[]
 }
+
+export interface AddParticipantResponse {
+  identificador: string
+  status: string
+}
+export interface AddParticipantError {
+  message: string
+  statusCode: string
+}

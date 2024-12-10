@@ -44,13 +44,13 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
   }
 
   return (
-    <div className='flex items-center justify-center p-4'>
+    <div className='flex items-center justify-center p-2'>
       <motion.div
         className='bg-white rounded-lg shadow-xl p-6 w-[520px] h-auto max-w-2xl'
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
       >
         <h1 className='text-4xl font-bold text-center mb-4 text-gray-800'>
           {winners.length > 1 ? 'Ganadores del Sorteo' : 'Ganador del Sorteo'}
@@ -59,7 +59,7 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
           variants={containerVariants}
           initial='hidden'
           animate='visible'
-          className='space-y-4'
+          className='space-y-2'
         >
           {winners.map((winner) => (
             <motion.li
@@ -69,10 +69,10 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
                 winner.position === 1
                   ? 'bg-gradient-to-r from-yellow-300 to-yellow-500'
                   : winner.position === 2
-                  ? 'bg-gradient-to-r from-gray-300 to-gray-400 shadow-sm '
+                  ? 'bg-gradient-to-r from-gray-300 to-gray-400 shadow-sm'
                   : winner.position === 3
-                  ? 'bg-gradient-to-r from-yellow-600 to-yellow-700 shadow-sm '
-                  : 'bg-gray-100 hover:bg-gray-200 transition-colors duration-300'
+                  ? 'bg-gradient-to-r from-yellow-600 to-yellow-700 shadow-sm'
+                  : 'bg-gray-300 hover:bg-gray-400 transition-colors duration-300'
               }`}
             >
               <span className='text-2xl font-bold w-8 text-center'>
@@ -81,11 +81,17 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
               <span>{getIcon(winner.position)}</span>
               <span
                 className={`flex flex-col text-gray-800 truncate ${
-                  winner.position < 3 ? 'text-xl font-semibold' : 'text-lg'
+                  winner.position === 1
+                    ? 'text-4xl'
+                    : winner.position === 2
+                    ? 'text-4xl'
+                    : 'text-3xl'
                 }`}
               >
-                {winner.lastName + ' ' + winner.firstName}
-                <p className='text-xs'>{'DNI: ' + winner.dni}</p>
+                <p className='capitalize truncate'>
+                  {winner.lastName + ' ' + winner.firstName}
+                </p>
+                <p className='text-lg'>{'DNI: ' + winner.dni}</p>
               </span>
             </motion.li>
           ))}
