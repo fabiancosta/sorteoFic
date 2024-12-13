@@ -14,13 +14,11 @@ const ADD_PARTICIPANT = process.env.NEXT_PUBLIC_ADD_PARTICIPANT as string
 export async function addParticipant(
   data: ParticipantSchemaType
 ): Promise<AddParticipantError | AddParticipantResponse> {
-  const API_KEY = sessionStorage.getItem('apiKeyValue') as string
   try {
     const response = await fetch(ADD_PARTICIPANT, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'X-Api-Key': API_KEY
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     })
@@ -36,20 +34,6 @@ export async function addParticipant(
     throw error
   }
 }
-
-async function getParticipants(players: number): Promise<ParticipantsList> {
-  const API_KEY = sessionStorage.getItem('apiKeyValue') as string
-  const response = await fetch(`${PARTICIPANTS_URL}?quantity=${players}`, {
-    headers: {
-      'X-Api-Key': API_KEY
-    }
-  })
-    .then((res) => res.json())
-    .catch((error) => console.log(error))
-
-  return response
-}
-
 export async function getWinners(players: number = 3): Promise<WinnersList> {
   const API_KEY = sessionStorage.getItem('apiKeyValue') as string
 
@@ -62,6 +46,19 @@ export async function getWinners(players: number = 3): Promise<WinnersList> {
     .catch((error) => console.log(error))
 
   console.log(response?.winners)
+
+  return response
+}
+
+async function getParticipants(players: number): Promise<ParticipantsList> {
+  const API_KEY = sessionStorage.getItem('apiKeyValue') as string
+  const response = await fetch(`${PARTICIPANTS_URL}?quantity=${players}`, {
+    headers: {
+      'X-Api-Key': API_KEY
+    }
+  })
+    .then((res) => res.json())
+    .catch((error) => console.log(error))
 
   return response
 }

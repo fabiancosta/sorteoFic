@@ -1,8 +1,12 @@
 import { z } from 'zod'
 
 export const ParticipantSchema = z.object({
-  nombre: z.string().min(1, { message: 'El nombre es requerido' }),
-  apellido: z.string().min(1, { message: 'El apellido es requerido' }),
+  nombre: z.string().min(1, { message: 'El nombre es requerido' }).max(25, {
+    message: 'Maximo de 25 caracteres'
+  }),
+  apellido: z.string().min(1, { message: 'El apellido es requerido' }).max(25, {
+    message: 'Maximo de 25 caracteres'
+  }),
   dni: z.string().refine((value) => /^\d{7,8}$/.test(value), {
     message: 'Debe contener entre 7 y 8 dígitos.'
   }),
