@@ -36,7 +36,7 @@ export default function Page({
               </AlertDescription>
             </Alert>
             <p>
-              <Link href={'/register'}>Registrarse nuevamente.</Link>
+              <Link href={'/register'}>Registrarse nuevamente</Link>
             </p>
           </div>
         ) : (
@@ -46,7 +46,7 @@ export default function Page({
             </h6>
 
             <p>
-              <Link href={'/register'}>Registrar a otro participante.</Link>
+              <Link href={'/register'}>Registrar a otro participante</Link>
             </p>
           </div>
         )}
