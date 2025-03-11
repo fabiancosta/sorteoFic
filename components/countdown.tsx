@@ -1,14 +1,15 @@
 'use client'
+import { useCountdown } from '@/hooks/use-coundown'
 import { CountdownProps } from '@/interfaces/components'
 
-export default function Countdown({ count, progress }: CountdownProps) {
-  const showNumber = count >= 0 || progress < 100 // Ajustamos el umbral para ocultar el número
+export const Countdown = ({ colorcircle, colorCount }: CountdownProps) => {
+  const { count, progress } = useCountdown(5, 5)
 
   return (
     <div className='relative w-64 h-64'>
       <svg className='w-full h-full' viewBox='0 0 100 100'>
         <circle
-          className='text-gray-500'
+          className={colorcircle}
           strokeWidth='8'
           stroke='currentColor'
           fill='transparent'
@@ -17,7 +18,7 @@ export default function Countdown({ count, progress }: CountdownProps) {
           cy='50'
         />
         <circle
-          className='text-azul-foreground transition-all duration-20 ease-linear'
+          className='text-background transition-all duration-100 ease-linear'
           strokeWidth='8'
           stroke='currentColor'
           fill='transparent'
@@ -30,11 +31,9 @@ export default function Countdown({ count, progress }: CountdownProps) {
         />
       </svg>
       <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center'>
-        {showNumber && (
-          <span className='text-7xl font-bold text-azul-foreground'>
-            {count}
-          </span>
-        )}
+        <span className={`text-6xl font-bold text-background ${colorCount}`}>
+          {count}
+        </span>
       </div>
     </div>
   )

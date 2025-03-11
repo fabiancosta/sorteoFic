@@ -1,43 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-export const useCountdown = (
-  initialCount: number,
-  duration: number,
-  isCounting: boolean
-) => {
+export const useCountdown = (initialCount: number, duration: number) => {
   const [count, setCount] = useState(initialCount)
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    if (!isCounting) {
-      setProgress(0) // Reiniciar el progreso
-      return // Solo contar cuando isCounting sea true
+    if (count > 0) {
+      const timer = setTimeout(() => setCount(count - 1), 1000)
+      return () => clearTimeout(timer)
     }
-    setCount(initialCount) // Reiniciar el contador al valor inicial
+  }, [count])
 
-    const countInterval = setInterval(() => {
-      setCount((prevCount) => {
-        if (prevCount > 0) {
-          return prevCount - 1
-        }
-        clearInterval(countInterval)
-        return prevCount
-      })
-    }, 1000)
-
-    const progressInterval = setInterval(() => {
+  useEffect(() => {
+    const interval = setInterval(() => {
       setProgress((oldProgress) => {
-        // Ajustamos la velocidad para que termine un poco antes
-        const newProgress = oldProgress + 100 / ((duration + 2) * 60)
+        const newProgress = oldProgress + 100 / (duration * 60)
         return newProgress >= 100 ? 100 : newProgress
       })
     }, 1000 / 60) // 60 FPS
 
-    return () => {
-      clearInterval(countInterval)
-      clearInterval(progressInterval)
-    }
-  }, [initialCount, duration, isCounting])
+    return () => clearInterval(interval)
+  }, [duration])
 
   return { count, progress }
 }
