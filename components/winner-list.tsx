@@ -1,7 +1,7 @@
 'use client'
 import { ParticipantData } from '@/interfaces/actions'
 import { motion } from 'framer-motion'
-import { Trophy, Medal, Award } from 'lucide-react'
+import { Award, Medal, Trophy } from 'lucide-react'
 
 type WinnerListProp = {
   winners: ParticipantData[]

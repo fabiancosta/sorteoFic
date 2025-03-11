@@ -1,10 +1,10 @@
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import {
   Card,
-  CardHeader,
-  CardTitle,
+  CardContent,
   CardDescription,
-  CardContent
+  CardHeader,
+  CardTitle
 } from '@/components/ui/card'
 import { AlertCircle } from 'lucide-react'
 import Link from 'next/link'
@@ -36,7 +36,7 @@ export default function Page({
               </AlertDescription>
             </Alert>
             <p>
-              <Link href={'/register'}>Registrarse nuevamente</Link>
+              <Link href={'/registrar'}>Registrarse nuevamente</Link>
             </p>
           </div>
         ) : (
@@ -46,7 +46,7 @@ export default function Page({
             </h6>
 
             <p>
-              <Link href={'/register'}>Registrar a otro participante</Link>
+              <Link href={'/registrar'}>Registrar a otro participante</Link>
             </p>
           </div>
         )}
