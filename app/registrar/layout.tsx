@@ -6,7 +6,6 @@ export const metadata: Metadata = {
   description: 'Inscripción para el sorteo.'
 }
 
-//TODO: Solicitar la imagen nueva del sorteo.
 export default function RegisterLayout({
   children
 }: Readonly<{

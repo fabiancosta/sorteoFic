@@ -70,7 +70,6 @@ export default function RegisterPage() {
     }
   }
 
-  //FIXME: Agregar un div que limite el tamaño de los inputs, dentro de CardConteiner. w-1/2, modificar inputs para que ocupen todo el espacio.
   return (
     <Form {...form}>
       <form
