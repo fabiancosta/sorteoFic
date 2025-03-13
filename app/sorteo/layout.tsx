@@ -1,11 +1,4 @@
-import type { Metadata } from 'next'
 import Image from 'next/image'
-
-export const metadata: Metadata = {
-  //Cambiar todo por variables a un objeto que modifique segun la necesidad de textos.
-  title: 'Festival Patagónico de la Empanada',
-  description: 'Sorteo para el Festival Patagónico de la Empanada.'
-}
 
 export default function SorteoLayout({
   children
@@ -18,8 +11,8 @@ export default function SorteoLayout({
         src={'/assets/fondo.jpg'}
         alt='Imagen de fondo para el sorteo'
         width={1920}
-        height={968}
-        className='absolute h-full w-full object-cover -z-10'
+        height={1060}
+        className='absolute object-cover -z-10'
       />
       {children}
     </>

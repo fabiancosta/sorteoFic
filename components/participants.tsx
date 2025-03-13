@@ -1,6 +1,6 @@
 'use client'
-import Image from 'next/image'
 import { ParticipantsList } from '@/interfaces/actions'
+import Image from 'next/image'
 // import { useMemo } from 'react'
 
 // const countryCodes = [
@@ -29,9 +29,7 @@ import { ParticipantsList } from '@/interfaces/actions'
 //   'VE'
 // ]
 
-export default function ParticipantWhitFlags({
-  participants
-}: ParticipantsList) {
+export default function Participants({ participants }: ParticipantsList) {
   // const participantsWithFlags = useMemo(() => {
   //   return participants.map((participant) => {
   //     const randomCountryCode =
@@ -47,7 +45,7 @@ export default function ParticipantWhitFlags({
 
   return (
     <div className='w-full p-4 overflow-hidden'>
-      <h2 className='text-white text-3xl font-bold mb-4'>{`Últimos ${participants.length} participantes:`}</h2>
+      <h2 className='text-3xl font-bold mb-4'>{`Últimos ${participants.length} participantes:`}</h2>
       <div className='grid grid-flow-dense gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4 2xl:grid-cols-5'>
         {participants.map((participant) => (
           <div
@@ -64,7 +62,7 @@ export default function ParticipantWhitFlags({
 
             <div className='absolute inset-0 flex items-center bg-opacity-20 justify-center p-1'>
               <span
-                className='text-white text-3xl font-bold text-center line-clamp-2 break-words capitalize text-ellipsis overflow-hidden px-7 pt-4'
+                className='text-3xl font-bold text-center line-clamp-2 break-words capitalize text-ellipsis overflow-hidden px-7 pt-4'
                 lang='es'
               >
                 {participant.lastName + ' ' + participant.firstName}

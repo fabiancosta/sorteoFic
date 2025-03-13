@@ -1,8 +1,12 @@
 'use client'
-import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
-import { LoaderCircle } from 'lucide-react'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card'
 import {
   Form,
   FormControl,
@@ -11,26 +15,22 @@ import {
   FormLabel,
   FormMessage
 } from '@/components/ui/form'
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardDescription
-} from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import {
-  ParticipantSchema,
-  type ParticipantSchemaType
-} from '@/schemas/form-sorteo'
-import { addParticipant } from '@/lib/actions'
 import type {
   AddParticipantError,
   AddParticipantResponse
 } from '@/interfaces/actions'
+import { addParticipant } from '@/lib/actions'
+import {
+  ParticipantSchema,
+  type ParticipantSchemaType
+} from '@/schemas/form-sorteo'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { LoaderCircle } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
 
-export default function Page() {
+export default function RegisterPage() {
   const router = useRouter()
 
   function isAddParticipantError(
@@ -78,9 +78,9 @@ export default function Page() {
         className='md:max-w-5xl w-full flex flex-col justify-center items-center space-y-4'
         autoComplete='off'
       >
-        <Card className='w-full flex flex-col lg:grid lg:grid-flow-row pb-2'>
+        <Card className='w-full flex flex-col lg:grid lg:grid-flow-row pb-2 text-marron'>
           <CardHeader className='lg:row-start-1 border-b-2 border-b-verde-foreground'>
-            <CardTitle className='text-lg md:text-xl xl:text-3xl'>
+            <CardTitle className='text-3xl md:text-xl xl:text-3xl'>
               Sorteos
             </CardTitle>
             <CardDescription className='xl:text-lg'>
@@ -93,7 +93,7 @@ export default function Page() {
               name='nombre'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nombre</FormLabel>
+                  <FormLabel className='text-lg'>Nombre</FormLabel>
                   <FormControl>
                     <Input placeholder='Tu nombre' {...field} />
                   </FormControl>
@@ -107,7 +107,7 @@ export default function Page() {
               name='apellido'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Apellido</FormLabel>
+                  <FormLabel className='text-lg'>Apellido</FormLabel>
                   <FormControl>
                     <Input placeholder='Tu apellido' {...field} />
                   </FormControl>
@@ -121,7 +121,7 @@ export default function Page() {
               name='dni'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>DNI</FormLabel>
+                  <FormLabel className='text-lg'>DNI</FormLabel>
                   <FormControl>
                     <Input placeholder='Tu DNI' {...field} />
                   </FormControl>
@@ -135,7 +135,7 @@ export default function Page() {
               name='telefono'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Teléfono</FormLabel>
+                  <FormLabel className='text-lg'>Teléfono</FormLabel>
                   <FormControl>
                     <Input placeholder='2942...' {...field} />
                   </FormControl>
@@ -149,7 +149,7 @@ export default function Page() {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Correo Electrónico</FormLabel>
+                  <FormLabel className='text-lg'>Correo Electrónico</FormLabel>
                   <FormControl>
                     <Input
                       type='email'
