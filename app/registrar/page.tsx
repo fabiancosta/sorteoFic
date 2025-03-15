@@ -61,16 +61,15 @@ export default function RegisterPage() {
     const addNewParticipant = await addParticipant(data)
     try {
       if (isAddParticipantError(addNewParticipant)) {
-        router.push(`/register/confirmed?error=${addNewParticipant.message}`)
+        router.push(`/registrar/confirmar?error=${addNewParticipant.message}`)
       } else {
-        router.push(`/register/confirmed?status=${addNewParticipant.status}`)
+        router.push(`/registrar/confirmar`)
       }
     } catch (error) {
       throw error
     }
   }
 
-  //FIXME: Agregar un div que limite el tamaño de los inputs, dentro de CardConteiner. w-1/2, modificar inputs para que ocupen todo el espacio.
   return (
     <Form {...form}>
       <form
