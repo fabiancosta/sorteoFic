@@ -7,7 +7,7 @@ export const ConfettiSection = ({
 }: ConfettiProps) => (
   <Confetti
     width={1920}
-    height={1060}
+    height={1080}
     run={offConfeti}
     recycle={showConfetti}
     numberOfPieces={400}

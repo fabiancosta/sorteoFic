@@ -8,10 +8,10 @@ export default function SorteoLayout({
   return (
     <>
       <Image
-        src={'/assets/fondo.jpg'}
+        src={'/assets/fondo.webp'}
         alt='Imagen de fondo para el sorteo'
         width={1920}
-        height={1060}
+        height={1080}
         className='absolute object-cover -z-10'
       />
       {children}
