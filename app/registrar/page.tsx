@@ -61,9 +61,9 @@ export default function RegisterPage() {
     const addNewParticipant = await addParticipant(data)
     try {
       if (isAddParticipantError(addNewParticipant)) {
-        router.push(`/register/confirmed?error=${addNewParticipant.message}`)
+        router.push(`/registrar/confirmar?error=${addNewParticipant.message}`)
       } else {
-        router.push(`/register/confirmed?status=${addNewParticipant.status}`)
+        router.push(`/registrar/confirmar`)
       }
     } catch (error) {
       throw error
