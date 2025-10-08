@@ -64,7 +64,7 @@ export default function Participants({ participants }: ParticipantsList) {
 
             <div className='absolute inset-0 flex items-center bg-opacity-20 justify-center p-1'>
               <span
-                className='text-3xl font-bold text-center line-clamp-2 break-words capitalize text-ellipsis overflow-hidden px-7 pt-4'
+                className='text-3xl font-bold text-center line-clamp-2 break-words capitalize text-ellipsis overflow-hidden px-7 pt-4 text-gray-200'
                 lang='es'
               >
                 {participant.lastName + ' ' + participant.firstName}

@@ -18,7 +18,7 @@ export const Countdown = ({ colorcircle, colorCount }: CountdownProps) => {
           cy='50'
         />
         <circle
-          className='text-background transition-all duration-100 ease-linear'
+          className='text-white transition-all duration-100 ease-linear'
           strokeWidth='8'
           stroke='currentColor'
           fill='transparent'
@@ -31,7 +31,7 @@ export const Countdown = ({ colorcircle, colorCount }: CountdownProps) => {
         />
       </svg>
       <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center'>
-        <span className={`text-6xl font-bold text-background ${colorCount}`}>
+        <span className={`text-6xl font-bold text-azul ${colorCount}`}>
           {count}
         </span>
       </div>
