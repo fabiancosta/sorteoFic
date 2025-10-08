@@ -5,7 +5,7 @@ export const LogoSection = () => (
     <Image
       src='/assets/logo.png'
       alt='Fiesta nacional del inmigrante y las colectividades.'
-      width={260}
+      width={500}
       height={250}
     />
   </div>
