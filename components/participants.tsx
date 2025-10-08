@@ -1,59 +1,61 @@
 'use client'
 import { ParticipantsList } from '@/interfaces/actions'
 import Image from 'next/image'
-// import { useMemo } from 'react'
+import { useMemo } from 'react'
 
-// const countryCodes = [
-//   'AR',
-//   'BE',
-//   'BO',
-//   'BR',
-//   'CN',
-//   'HR',
-//   'SE',
-//   'SY',
-//   'CL',
-//   'CO',
-//   'DE',
-//   'ES',
-//   'FR',
-//   'MX',
-//   'KR',
-//   'IT',
-//   'IL',
-//   'JP',
-//   'PY',
-//   'PE',
-//   'US',
-//   'UY',
-//   'VE'
-// ]
+const countryCodes = [
+  'AR',
+  'BE',
+  'BO',
+  'BR',
+  'CN',
+  'HR',
+  'SE',
+  'SY',
+  'CL',
+  'CO',
+  'DE',
+  'ES',
+  'FR',
+  'MX',
+  'KR',
+  'IT',
+  'IL',
+  'JP',
+  'PY',
+  'PE',
+  'US',
+  'UY',
+  'VE'
+]
 
 export default function Participants({ participants }: ParticipantsList) {
-  // const participantsWithFlags = useMemo(() => {
-  //   return participants.map((participant) => {
-  //     const randomCountryCode =
-  //       countryCodes[Math.floor(Math.random() * countryCodes.length)]
-  //     const flagUrl = `https://flagsapi.com/${randomCountryCode}/flat/64.png`
+  const participantsWithFlags = useMemo(() => {
+    return participants.map((participant) => {
+      const randomCountryCode =
+        countryCodes[Math.floor(Math.random() * countryCodes.length)]
+      const flagUrl = `https://flagsapi.com/${randomCountryCode}/flat/64.png`
 
-  //     return {
-  //       ...participant,
-  //       flagUrl
-  //     }
-  //   })
-  // }, [participants])
+      return {
+        ...participant,
+        flagUrl
+      }
+    })
+  }, [participants])
 
   return (
     <div className='w-full p-4 overflow-hidden'>
       <h2 className='text-3xl font-bold mb-4'>{`Últimos ${participants.length} participantes:`}</h2>
       <div className='grid grid-flow-dense gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4 2xl:grid-cols-5'>
-        {participants.map((participant) => (
+        {/* {participants.map((participant) => ( */}
+        {participantsWithFlags.map((participant) => (
           <div
             key={participant.dni}
             className='relative w-52 h-32 rounded-md bg-transparent border-1 border-red-500'
           >
             <Image
-              src={'/assets/fdo-nombres.png'}
+              src={participant.flagUrl}
+              // src={'/assets/fdo-nombres.png'}
               width={208}
               height={128}
               alt={`Bandera para ${participant.firstName}`}

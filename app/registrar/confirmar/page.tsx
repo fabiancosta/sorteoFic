@@ -17,7 +17,7 @@ export default function Page({
   return (
     <Card className='md:max-w-5xl w-full flex flex-col space-y-4 lg:grid lg:grid-flow-row pb-2'>
       <CardHeader className='lg:row-start-1 border-b-2 border-b-verde-foreground'>
-        <CardTitle className='text-lg md:text-xl xl:text-3xl'>
+        <CardTitle className='text-lg md:text-xl xl:text-3xl text-azul'>
           Sorteos
         </CardTitle>
         <CardDescription className='xl:text-lg'>

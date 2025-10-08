@@ -11,7 +11,7 @@ export default function SorteoLayout({
         src={'/assets/fondo.jpg'}
         alt='Imagen de fondo para el sorteo'
         width={1920}
-        height={1060}
+        height={900}
         className='absolute object-cover -z-10'
       />
       {children}

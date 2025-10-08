@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${bebas.className} antialiased relative text-marron`}>
+      <body className={`${bebas.className} antialiased relative text-azul`}>
         {children}
       </body>
     </html>

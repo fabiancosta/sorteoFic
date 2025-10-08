@@ -77,7 +77,7 @@ export default function RegisterPage() {
         className='md:max-w-5xl w-full flex flex-col justify-center items-center space-y-4'
         autoComplete='off'
       >
-        <Card className='w-full flex flex-col lg:grid lg:grid-flow-row pb-2 text-marron'>
+        <Card className='w-full flex flex-col lg:grid lg:grid-flow-row pb-2 text-azul'>
           <CardHeader className='lg:row-start-1 border-b-2 border-b-verde-foreground'>
             <CardTitle className='text-3xl md:text-xl xl:text-3xl'>
               Sorteos
