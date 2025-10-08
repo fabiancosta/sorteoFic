@@ -1,22 +1,39 @@
 'use client'
-import { ParticipantsList, WinnersList } from '@/interfaces/actions'
+import type {
+  AddParticipantError,
+  AddParticipantResponse,
+  ParticipantsList,
+  WinnersList
+} from '@/interfaces/actions'
+import { type ParticipantSchemaType } from '@/schemas/form-sorteo'
 
 const WINNERS_URL = process.env.NEXT_PUBLIC_GET_WINNERS as string
 const PARTICIPANTS_URL = process.env.NEXT_PUBLIC_GET_PARTICIPANTS as string
+const ADD_PARTICIPANT = process.env.NEXT_PUBLIC_ADD_PARTICIPANT as string
 
-async function getParticipants(players: number): Promise<ParticipantsList> {
-  const API_KEY = sessionStorage.getItem('apiKeyValue') as string
-  const response = await fetch(`${PARTICIPANTS_URL}?quantity=${players}`, {
-    headers: {
-      'X-Api-Key': API_KEY
+export async function addParticipant(
+  data: ParticipantSchemaType
+): Promise<AddParticipantError | AddParticipantResponse> {
+  try {
+    const response = await fetch(ADD_PARTICIPANT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+
+    if (response.ok) {
+      const newParticipant = (await response.json()) as AddParticipantResponse
+      return newParticipant
+    } else {
+      const errorAdding = (await response.json()) as AddParticipantError
+      return errorAdding
     }
-  })
-    .then((res) => res.json())
-    .catch((error) => console.log(error))
-
-  return response
+  } catch (error) {
+    throw error
+  }
 }
-
 export async function getWinners(players: number = 3): Promise<WinnersList> {
   const API_KEY = sessionStorage.getItem('apiKeyValue') as string
 
@@ -29,6 +46,19 @@ export async function getWinners(players: number = 3): Promise<WinnersList> {
     .catch((error) => console.log(error))
 
   console.log(response?.winners)
+
+  return response
+}
+
+async function getParticipants(players: number): Promise<ParticipantsList> {
+  const API_KEY = sessionStorage.getItem('apiKeyValue') as string
+  const response = await fetch(`${PARTICIPANTS_URL}?quantity=${players}`, {
+    headers: {
+      'X-Api-Key': API_KEY
+    }
+  })
+    .then((res) => res.json())
+    .catch((error) => console.log(error))
 
   return response
 }

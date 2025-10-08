@@ -57,6 +57,10 @@ const config: Config = {
           DEFAULT: 'hsl(var(--verde))',
           foreground: 'hsl(var(--verde-foreground))'
         },
+        marron: {
+          DEFAULT: 'hsl(var(--marron))',
+          foreground: 'hsl(var(--marron-foreground))'
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
