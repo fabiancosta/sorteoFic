@@ -167,12 +167,12 @@ export default function RegisterPage() {
           variant={'secondary'}
           type='submit'
           disabled={isSubmitting}
-          className='font-semibold self-center min-w-56'
+          className='text-lg font-medium self-center min-w-56'
         >
           {isSubmitting ? (
-            <span className='space-x-2'>
-              <LoaderCircle className='h-4 w-4 animate-spin' />
-              Enviando...
+            <span className='flex gap-x-2 items-center'>
+              <LoaderCircle className='h-6 w-6 animate-spin' />
+              Envíando...
             </span>
           ) : (
             'Enviar'
