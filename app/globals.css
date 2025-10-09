@@ -71,6 +71,11 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .text-outline-black {
+    text-shadow: -2.4px -2.4px 0 #000, 2.4px -2.4px 0 #000, -2.4px 2.4px 0 #000,
+      2.4px 2.4px 0 #000;
+  }
 }
 
 body {
