@@ -1,18 +1,17 @@
 import { SessionStorageProvider } from '@/context/session-provider'
-import Image from 'next/image'
 import { Suspense } from 'react'
 
 export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <main className='relative container min-h-screen w-full grid grid-cols-small-fic xl:grid-cols-fic'>
-      <article className='col-start-1 place-self-center'>
+      {/* <article className='col-start-1 place-self-center'>
         <Image
           src={'/assets/sponsors-izq.png'}
           alt='Sponsors Parte 1'
           width={300}
           height={800}
         />
-      </article>
+      </article> */}
       <Suspense
         fallback={
           <div className='grid place-content-center text-7xl font-bold'>
@@ -22,14 +21,14 @@ export default function Template({ children }: { children: React.ReactNode }) {
       >
         <SessionStorageProvider>{children}</SessionStorageProvider>
       </Suspense>
-      <article className='col-start-3 place-self-center'>
+      {/* <article className='col-start-3 place-self-center'>
         <Image
           src={'/assets/sponsors-der.png'}
           alt='Sponsors Parte 2'
           width={300}
           height={800}
         />
-      </article>
+      </article> */}
     </main>
   )
 }

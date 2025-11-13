@@ -23,8 +23,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en'>
-      <body className={`${bebas.className} antialiased relative text-azul`}>
+    <html lang='en' className='bg-gradient-to-b from-sky-600 to-sky-950'>
+      <body
+        className={`${bebas.className} antialiased relative text-azul bg-inherit min-h-[1060px]`}
+      >
         {children}
       </body>
     </html>

@@ -1,4 +1,4 @@
-import { type ParticipantData } from './actions'
+import { TeamParticipants, type ParticipantData } from './actions'
 
 export interface ActionButtonsPros {
   handleRecargar: () => void
@@ -18,7 +18,7 @@ export type ConfettiProps = {
 
 export type WinnersProps = {
   showGanadores: boolean
-  ganadores: ParticipantData[]
+  ganadores: TeamParticipants[]
 }
 
 export type CountdownProps = {

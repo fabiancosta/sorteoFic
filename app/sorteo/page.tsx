@@ -1,11 +1,11 @@
 'use client'
 import { ActionButtons } from '@/components/action-buttons'
 import { useSorteo } from '@/hooks/use-sorteo'
-import { ConfettiSection } from './components/confetti'
 import { CountdownSection } from './components/countdown'
 import { LogoSection } from './components/logo'
 import { ParticipantsSection } from './components/participants'
 import { WinnersSection } from './components/winners'
+import { ConfettiSection } from './components/confetti'
 
 export default function Sorteo() {
   const {
