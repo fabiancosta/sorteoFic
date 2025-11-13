@@ -17,7 +17,7 @@ export const CountdownSection = ({
         aria-live='polite'
         className='mt-20'
       >
-        <Countdown colorCount='text-azul' colorcircle='text-verde' />
+        <Countdown colorCount='text-white' colorcircle='text-verde' />
       </motion.div>
     )}
   </AnimatePresence>

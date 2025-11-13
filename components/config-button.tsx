@@ -1,6 +1,4 @@
 'use client'
-import { useContext } from 'react'
-import { Settings } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -10,15 +8,15 @@ import {
   PopoverTrigger
 } from '@/components/ui/popover'
 import { SessionStorageContext } from '@/context/session-provider'
+import { Settings } from 'lucide-react'
+import { useContext } from 'react'
 
 export function SettingsButton() {
-  const { winners, apiKey, updateKeyValue, updateWinnersValue } = useContext(
-    SessionStorageContext
-  )
+  const { apiKey, updateKeyValue } = useContext(SessionStorageContext)
 
-  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateWinnersValue(Number(e.target.value))
-  }
+  // const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   updateWinnersValue(Number(e.target.value))
+  // }
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateKeyValue(e.target.value)
@@ -42,7 +40,7 @@ export function SettingsButton() {
             </p>
           </div>
           <div className='grid gap-2'>
-            <div className='grid grid-cols-3 items-center gap-4'>
+            {/* <div className='grid grid-cols-3 items-center gap-4'>
               <Label htmlFor='winners' className='text-secondary'>
                 Ganadores
               </Label>
@@ -53,7 +51,7 @@ export function SettingsButton() {
                 onChange={handleNumberChange}
                 className='col-span-2 h-8 font-semibold'
               />
-            </div>
+            </div> */}
             <div className='grid grid-cols-3 items-center gap-4'>
               <Label htmlFor='apiKey' className='text-secondary'>
                 Key

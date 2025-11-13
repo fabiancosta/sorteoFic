@@ -25,3 +25,9 @@ export interface AddParticipantError {
   message: string
   statusCode: string
 }
+
+export interface TeamParticipants {
+  position: number
+  teamId: number
+  teamName: string
+}

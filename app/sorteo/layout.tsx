@@ -1,4 +1,4 @@
-import Image from 'next/image'
+// import Image from 'next/image'
 
 export default function SorteoLayout({
   children
@@ -7,13 +7,13 @@ export default function SorteoLayout({
 }>) {
   return (
     <>
-      <Image
+      {/* <Image
         src={'/assets/fondo.jpg'}
         alt='Imagen de fondo para el sorteo'
         width={1920}
         height={900}
-        className='absolute object-cover -z-10'
-      />
+        className='absolute object-fill -z-10'
+      /> */}
       {children}
     </>
   )

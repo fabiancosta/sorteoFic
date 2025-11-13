@@ -1,12 +1,12 @@
 import { SessionStorageContext } from '@/context/session-provider'
-import { type ParticipantData } from '@/interfaces/actions'
+import { TeamParticipants, type ParticipantData } from '@/interfaces/actions'
 import { getWinners, reloadParticipants } from '@/lib/actions'
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
 
 export const useSorteo = () => {
   const [participants, setParticipants] = useState<ParticipantData[]>([])
-  const [winners, setWinners] = useState<ParticipantData[]>([])
+  const [winners, setWinners] = useState<TeamParticipants[]>([])
   const [counter, setCounter] = useState(5)
   const [loading, setLoading] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
@@ -78,7 +78,7 @@ export const useSorteo = () => {
       countdownPromise
     ])
 
-    setWinners(winnersResult.winners)
+    setWinners(winnersResult)
     setShowWinners(true)
   }
 

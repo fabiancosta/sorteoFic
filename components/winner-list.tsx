@@ -1,12 +1,8 @@
 'use client'
-import { ParticipantData } from '@/interfaces/actions'
+import { TeamParticipants } from '@/interfaces/actions'
 import { motion } from 'framer-motion'
-import { Award, Medal, Trophy } from 'lucide-react'
 
-type WinnerListProp = {
-  winners: ParticipantData[]
-}
-export const WinnerList = ({ winners }: WinnerListProp) => {
+export const WinnerList = ({ winners }: { winners: TeamParticipants[] }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -30,19 +26,6 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
     }
   }
 
-  const getIcon = (lugar: number) => {
-    switch (lugar) {
-      case 1:
-        return <Trophy className='w-8 h-8 text-yellow-500' />
-      case 2:
-        return <Medal className='w-7 h-7 text-gray-400' />
-      case 3:
-        return <Medal className='w-6 h-6 text-amber-800' />
-      default:
-        return <Award className='w-5 h-5 text-blue-500' />
-    }
-  }
-
   return (
     <div className='flex items-center justify-center p-2'>
       <motion.div
@@ -53,7 +36,7 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
         transition={{ duration: 0.5, delay: 0.4 }}
       >
         <h1 className='text-4xl font-bold text-center mb-4 text-gray-800'>
-          {winners.length > 1 ? 'Ganadores del Sorteo' : 'Ganador del Sorteo'}
+          Orden de participación
         </h1>
         <motion.ul
           variants={containerVariants}
@@ -65,33 +48,17 @@ export const WinnerList = ({ winners }: WinnerListProp) => {
             <motion.li
               key={winner.position}
               variants={itemVariants}
-              className={`flex items-center p-3 gap-x-2 rounded-lg ${
-                winner.position === 1
-                  ? 'bg-gradient-to-r from-yellow-300 to-yellow-500'
-                  : winner.position === 2
-                  ? 'bg-gradient-to-r from-gray-300 to-gray-400 shadow-sm'
-                  : winner.position === 3
-                  ? 'bg-gradient-to-r from-yellow-600 to-yellow-700 shadow-sm'
-                  : 'bg-gray-300 hover:bg-gray-400 transition-colors duration-300'
-              }`}
+              className={`flex items-center p-3 gap-x-2 rounded-lg bg-gray-300 hover:bg-gray-400 transition-colors duration-300
+              `}
             >
-              <span className='text-2xl font-bold w-8 text-center'>
+              <span className='text-3xl font-bold w-8 text-center'>
                 {winner.position}
               </span>
-              <span>{getIcon(winner.position)}</span>
               <span
-                className={`flex flex-col text-gray-800 truncate ${
-                  winner.position === 1
-                    ? 'text-4xl'
-                    : winner.position === 2
-                    ? 'text-4xl'
-                    : 'text-3xl'
-                }`}
+                className={`flex flex-col text-gray-800 truncate text-3xl font-semibold  
+                `}
               >
-                <p className='capitalize truncate'>
-                  {winner.lastName + ' ' + winner.firstName}
-                </p>
-                <p className='text-lg'>{'DNI: ' + winner.dni}</p>
+                <p className='capitalize truncate'>{winner.teamName}</p>
               </span>
             </motion.li>
           ))}
